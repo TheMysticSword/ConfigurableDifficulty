@@ -1,0 +1,36 @@
+{
+  "strings": {
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_NAME": "Pluviculture",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION": "Configurable difficulty. Play the game the way you want!",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_DIFFICULTYSCALING": "<style=cStack>>Difficulty Scaling: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_PLAYERREGEN": "<style=cStack>>Player Health Regeneration: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYSTARTINGHEALTH": "<style=cStack>>Ally Starting Health: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYMAXHEALTH": "<style=cStack>>Ally Maximum Health: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYHEALING": "<style=cStack>>Ally Healing: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYARMOR": "<style=cStack>>Ally Armor: {0}</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ENEMYSPEED": "<style=cStack>>Enemy Speed: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ENEMYCOOLDOWNS": "<style=cStack>>Enemy Cooldowns: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ENEMYGOLDDROPS": "<style=cStack>>Enemy Gold Drops: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_TELEPORTERRADIUS": "<style=cStack>>Teleporter Radius: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_AMBIENTLEVELCAP": "<style=cStack>>Maximum Enemy Level: {0}</style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_COUNTSASHARDMODE": "<style=cStack>>Completing a run will unlock the Mastery skin for the selected character</style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_NOCHANGES": "<style=cStack>>Standard Rainstorm rules</style>"
+  },
+  "RU": {
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_NAME": "Плювикультура",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION": "Настраиваемая сложность. Играйте так, как хотите!",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_DIFFICULTYSCALING": "<style=cStack>>Скорость нарастания сложности: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_PLAYERREGEN": "<style=cStack>>Регенерация здоровья игроков: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYSTARTINGHEALTH": "<style=cStack>>Начальное здоровье союзников: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYMAXHEALTH": "<style=cStack>>Максимальное здоровье союзников: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYHEALING": "<style=cStack>>Исцеление союзников: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ALLYARMOR": "<style=cStack>>Броня союзников: {0}</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ENEMYSPEED": "<style=cStack>>Скорость врагов: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ENEMYCOOLDOWNS": "<style=cStack>>Время восстановления навыков врагов: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ENEMYGOLDDROPS": "<style=cStack>>Золото, получаемое от врагов: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_TELEPORTERRADIUS": "<style=cStack>>Радиус телепорта: {0}%</style></style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_AMBIENTLEVELCAP": "<style=cStack>>Максимальный уровень врагов: {0}</style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_COUNTSASHARDMODE": "<style=cStack>>Прохождение забега откроет облик Мастерства выбранного персонажа</style>",
+    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_NOCHANGES": "<style=cStack>>Стандартные правила уровня сложности «Ливень»</style>"
+  }
+}
