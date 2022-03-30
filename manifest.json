@@ -1,7 +1,7 @@
 {
   "name": "ConfigurableDifficulty",
   "version_number": "1.0.0",
-  "website_url": "",
+  "website_url": "https://github.com/TheMysticSword/ConfigurableDifficulty",
   "description": "Adds a new difficulty with many configurable values to make the game easier or harder.",
   "dependencies": [
     "bbepis-BepInExPack-5.4.19",
