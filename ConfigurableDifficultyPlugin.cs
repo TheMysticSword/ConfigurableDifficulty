@@ -53,7 +53,7 @@ namespace ConfigurableDifficulty
             config = new ConfigFile(Paths.ConfigPath + "\\ConfigurableDifficulty.cfg", true);
             difficultyScaling = config.Bind("", "DifficultyScaling", 50f, "Difficulty scaling over time (in %). Set to positive values to increase scaling, set to negative values to reduce it.");
             playerRegen = config.Bind("", "PlayerRegen", -40f, "Player health regeneration (in %). Set to positive values to increase regen, set to negative values to reduce it.");
-            allyStartingHealth = config.Bind("", "AllyStartingHealth", 100f, "Ally starting health (in %). Set between 0-100% to change how much health allies spawn with.");
+            allyStartingHealth = config.Bind("", "AllyStartingHealth", 50f, "Ally starting health (in %). Set between 0-100% to change how much health allies spawn with.");
             allyMaxHealth = config.Bind("", "AllyMaxHealth", 0f, "Ally maximum health (in %). Set to positive values to increase health, set to negative values to reduce it.");
             allyHealing = config.Bind("", "AllyHealing", -50f, "Ally healing (in %). Set to positive values to increase healing, set to negative values to reduce it. Values of -100% and below make healing 0.");
             allyArmor = config.Bind("", "AllyArmor", 0f, "Ally armor. Set to positive values to increase armor, set to negative values to reduce it.");
@@ -153,7 +153,7 @@ namespace ConfigurableDifficulty
                 {
                     new ConfigurableDifficultyDescriptionSection(difficultyScaling, moreIsBetter: false),
                     new ConfigurableDifficultyDescriptionSection(playerRegen),
-                    new ConfigurableDifficultyDescriptionSection(allyStartingHealth, deltaStartingValue: 100f, showOnlyIfValueIsDifferent: true),
+                    new ConfigurableDifficultyDescriptionSection(allyStartingHealth, deltaStartingValue: 100f),
                     new ConfigurableDifficultyDescriptionSection(allyMaxHealth),
                     new ConfigurableDifficultyDescriptionSection(allyHealing),
                     new ConfigurableDifficultyDescriptionSection(allyArmor),
