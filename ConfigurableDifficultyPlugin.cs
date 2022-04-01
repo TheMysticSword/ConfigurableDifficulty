@@ -250,18 +250,21 @@ namespace ConfigurableDifficulty
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            switch (sender.teamComponent.teamIndex)
+            if (Run.instance.selectedDifficulty == configurableDifficultyIndex)
             {
-                case TeamIndex.Player:
-                    if (sender.isPlayerControlled) args.regenMultAdd += playerRegen.Value / 100f;
-                    args.healthMultAdd += allyMaxHealth.Value / 100f;
-                    args.armorAdd += allyArmor.Value;
-                    break;
-                case TeamIndex.Monster:
-                    if (enemySpeed.Value > 0f) args.moveSpeedMultAdd += enemySpeed.Value / 100f;
-                    else args.moveSpeedReductionMultAdd -= enemySpeed.Value / 100f;
-                    args.cooldownMultAdd += enemyCooldowns.Value / 100f;
-                    break;
+                switch (sender.teamComponent.teamIndex)
+                {
+                    case TeamIndex.Player:
+                        if (sender.isPlayerControlled) args.regenMultAdd += playerRegen.Value / 100f;
+                        args.healthMultAdd += allyMaxHealth.Value / 100f;
+                        args.armorAdd += allyArmor.Value;
+                        break;
+                    case TeamIndex.Monster:
+                        if (enemySpeed.Value > 0f) args.moveSpeedMultAdd += enemySpeed.Value / 100f;
+                        else args.moveSpeedReductionMultAdd -= enemySpeed.Value / 100f;
+                        args.cooldownMultAdd += enemyCooldowns.Value / 100f;
+                        break;
+                }
             }
         }
 
