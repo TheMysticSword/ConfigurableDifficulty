@@ -31,6 +31,9 @@ namespace ConfigurableDifficulty
         public static ConfigEntry<float> allyMaxHealth;
         public static ConfigEntry<float> allyHealing;
         public static ConfigEntry<float> allyArmor;
+        public static ConfigEntry<float> allyFallDamage;
+        public static ConfigEntry<bool> allyFallDamageIsLethal;
+        public static ConfigEntry<float> allyPermanentDamage;
         public static ConfigEntry<float> enemySpeed;
         public static ConfigEntry<float> enemyCooldowns;
         public static ConfigEntry<float> enemyGoldDrops;
@@ -54,6 +57,9 @@ namespace ConfigurableDifficulty
             allyMaxHealth = config.Bind("", "AllyMaxHealth", 0f, "Ally maximum health (in %). Set to positive values to increase health, set to negative values to reduce it.");
             allyHealing = config.Bind("", "AllyHealing", -50f, "Ally healing (in %). Set to positive values to increase healing, set to negative values to reduce it. Values of -100% and below make healing 0.");
             allyArmor = config.Bind("", "AllyArmor", 0f, "Ally armor. Set to positive values to increase armor, set to negative values to reduce it.");
+            allyFallDamage = config.Bind("", "AllyFallDamage", 100f, "Ally fall damage (in %). Set to positive values to increase fall damage, set to negative values to reduce it. Values of -100% and below make fall damage 0.");
+            allyFallDamageIsLethal = config.Bind("", "AllyFallDamageIsLethal", true, "Allies can die from fall damage.");
+            allyPermanentDamage = config.Bind("", "AllyPermanentDamage", 40f, "Whenever an ally takes damage, their maximum health is reduced by a portion of taken damage (in %). Set to positive values to increase permanent damage, set to negative values to reduce it. Values of 0% and below disable permanent damage.");
             enemySpeed = config.Bind("", "EnemySpeed", 40f, "Enemy movement speed (in %). Set to positive values to increase speed, set to negative values to reduce it.");
             enemyCooldowns = config.Bind("", "EnemyCooldowns", -50f, "Enemy skill cooldowns (in %). Set to positive values to increase cooldowns, set to negative values to reduce them.");
             enemyGoldDrops = config.Bind("", "EnemyGoldDrops", -20f, "Enemy gold drops (in %). Set to positive values to increase gold drops, set to negative values to reduce them. Values of -100% and below set gold drops to 0.");
@@ -85,6 +91,8 @@ namespace ConfigurableDifficulty
             IL.RoR2.DeathRewards.OnKilledServer += DeathRewards_OnKilledServer;
             On.RoR2.HoldoutZoneController.Awake += HoldoutZoneController_Awake;
             On.RoR2.Run.RecalculateDifficultyCoefficentInternal += Run_RecalculateDifficultyCoefficentInternal;
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            On.RoR2.HealthComponent.Awake += HealthComponent_Awake;
         }
 
         private struct ConfigurableDifficultyDescriptionSection
@@ -149,6 +157,9 @@ namespace ConfigurableDifficulty
                     new ConfigurableDifficultyDescriptionSection(allyMaxHealth),
                     new ConfigurableDifficultyDescriptionSection(allyHealing),
                     new ConfigurableDifficultyDescriptionSection(allyArmor),
+                    new ConfigurableDifficultyDescriptionSection(allyFallDamage, moreIsBetter: false),
+                    new ConfigurableDifficultyDescriptionSection(allyFallDamageIsLethal),
+                    new ConfigurableDifficultyDescriptionSection(allyPermanentDamage, moreIsBetter: false),
                     new ConfigurableDifficultyDescriptionSection(enemySpeed, moreIsBetter: false),
                     new ConfigurableDifficultyDescriptionSection(enemyCooldowns),
                     new ConfigurableDifficultyDescriptionSection(enemyGoldDrops),
@@ -348,6 +359,59 @@ namespace ConfigurableDifficulty
             orig(self);
         }
 
+        private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            if (damageInfo != null && damageInfo.damageType.HasFlag(DamageType.FallDamage) && Run.instance.selectedDifficulty == configurableDifficultyIndex)
+            {
+                if (self.body && self.body.teamComponent.teamIndex == TeamIndex.Player)
+                {
+                    damageInfo.damage *= 1f + allyFallDamage.Value / 100f;
+                    if (allyFallDamageIsLethal.Value)
+                    {
+                        damageInfo.damageType &= ~DamageType.NonLethal;
+                        damageInfo.damageType |= DamageType.BypassOneShotProtection;
+                    }
+                }
+            }
+            orig(self, damageInfo);
+        }
+
+        private void HealthComponent_Awake(On.RoR2.HealthComponent.orig_Awake orig, HealthComponent self)
+        {
+            self.gameObject.AddComponent<ConfigurableDifficultyDamageReceiver>();
+            orig(self);
+        }
+
+        public class ConfigurableDifficultyDamageReceiver : MonoBehaviour, IOnTakeDamageServerReceiver
+        {
+            public HealthComponent healthComponent;
+            public CharacterBody victimBody;
+
+            public void Start()
+            {
+                healthComponent = GetComponent<HealthComponent>();
+                if (!healthComponent)
+                {
+                    Object.Destroy(this);
+                    return;
+                }
+                victimBody = healthComponent.body;
+            }
+
+            public void OnTakeDamageServer(DamageReport damageReport)
+            {
+                if (victimBody && victimBody.teamComponent.teamIndex == TeamIndex.Player && Run.instance.selectedDifficulty == configurableDifficultyIndex)
+                {
+                    float takenDamagePercent = damageReport.damageDealt / healthComponent.fullCombinedHealth * 100f;
+                    int permanentDamage = Mathf.FloorToInt(takenDamagePercent * allyPermanentDamage.Value / 100f);
+                    for (int l = 0; l < permanentDamage; l++)
+                    {
+                        victimBody.AddBuff(RoR2Content.Buffs.PermanentCurse);
+                    }
+                }
+            }
+        }
+
         [ConCommand(commandName = "mod_cfgdif_reload", flags = ConVarFlags.None, helpText = "Reload the config file of ConfigurableDifficulty.")]
         private static void CCReloadConfig(ConCommandArgs args)
         {
@@ -359,8 +423,10 @@ namespace ConfigurableDifficulty
         {
             playerRegen.Value = Mathf.Clamp(playerRegen.Value, 0f, 100f);
             allyHealing.Value = Mathf.Max(allyHealing.Value, -100f);
-            enemyGoldDrops.Value = Mathf.Max(allyHealing.Value, -100f);
-            teleporterRadius.Value = Mathf.Max(allyHealing.Value, -100f);
+            allyFallDamage.Value = Mathf.Max(allyFallDamage.Value, -100f);
+            allyPermanentDamage.Value = Mathf.Max(allyPermanentDamage.Value, 0f);
+            enemyGoldDrops.Value = Mathf.Max(enemyGoldDrops.Value, -100f);
+            teleporterRadius.Value = Mathf.Max(teleporterRadius.Value, -100f);
 
             SetConfigRelatedDifficultyDefValues();
         }
