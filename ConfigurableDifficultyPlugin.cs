@@ -18,7 +18,7 @@ namespace ConfigurableDifficulty
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [BepInDependency(R2API.R2API.PluginGUID)]
-    [R2APISubmoduleDependency(nameof(DifficultyAPI), nameof(CommandHelper))]
+    [R2APISubmoduleDependency(nameof(DifficultyAPI), nameof(CommandHelper), nameof(RecalculateStatsAPI))]
     public class ConfigurableDifficultyPlugin : BaseUnityPlugin
     {
         public const string PluginGUID = "com.themysticsword.configurabledifficulty";
