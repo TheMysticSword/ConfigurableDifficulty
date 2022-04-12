@@ -24,7 +24,7 @@ namespace ConfigurableDifficulty
     {
         public const string PluginGUID = "com.themysticsword.configurabledifficulty";
         public const string PluginName = "ConfigurableDifficulty";
-        public const string PluginVersion = "1.0.1";
+        public const string PluginVersion = "1.1.0";
 
         // General
         public static ConfigEntry<float> difficultyScaling;
