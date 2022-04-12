@@ -204,9 +204,12 @@ namespace ConfigurableDifficulty
             IL.RoR2.HealthComponent.Heal += HealthComponent_Heal;
             IL.RoR2.DeathRewards.OnKilledServer += DeathRewards_OnKilledServer;
             On.RoR2.HoldoutZoneController.Awake += HoldoutZoneController_Awake;
+            On.RoR2.HoldoutZoneController.FixedUpdate += HoldoutZoneController_FixedUpdate;
             On.RoR2.Run.RecalculateDifficultyCoefficentInternal += Run_RecalculateDifficultyCoefficentInternal;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             On.RoR2.HealthComponent.Awake += HealthComponent_Awake;
+            On.RoR2.CharacterMaster.Awake += CharacterMaster_Awake;
+            On.RoR2.UI.EnemyInfoPanel.SetDisplayDataForViewer += EnemyInfoPanel_SetDisplayDataForViewer;
         }
 
         private string Language_GetLocalizedStringByToken(On.RoR2.Language.orig_GetLocalizedStringByToken orig, Language self, string token)
