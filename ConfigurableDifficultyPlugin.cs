@@ -103,12 +103,14 @@ namespace ConfigurableDifficulty
         public static DifficultyIndex configurableDifficultyIndex;
 
         public static ConfigFile config;
+        public static BepInEx.Logging.ManualLogSource logger;
 
         public void Awake()
         {
             CommandHelper.AddToConsoleWhenReady();
 
             config = new ConfigFile(Paths.ConfigPath + "\\ConfigurableDifficulty.cfg", true);
+            logger = Logger;
             
             difficultyScaling = config.Bind("General", "DifficultyScaling", 50f, "Difficulty scaling over time (in %)");
             teleporterRadius = config.Bind("General", "TeleporterRadius", -50f, "Teleporter radius (in %). Values of -100% and below set the radius to 0m.");
