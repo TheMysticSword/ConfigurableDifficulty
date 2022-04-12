@@ -367,13 +367,52 @@ namespace ConfigurableDifficulty
                 switch (sender.teamComponent.teamIndex)
                 {
                     case TeamIndex.Player:
-                        if (sender.isPlayerControlled) args.regenMultAdd += playerRegen.Value / 100f;
+                        if (sender.isPlayerControlled)
+                        {
+                            args.healthMultAdd += playerMaxHealth.Value / 100f;
+                            args.baseShieldAdd += sender.maxHealth * playerMaxShield.Value / 100f;
+                            args.regenMultAdd += playerRegen.Value / 100f;
+                            args.baseRegenAdd += playerBaseRegen.Value;
+                            if (playerSpeed.Value > 0f) args.moveSpeedMultAdd += playerSpeed.Value / 100f;
+                            else args.moveSpeedReductionMultAdd -= playerSpeed.Value / 100f;
+                            args.jumpPowerMultAdd += playerJumpPower.Value / 100f;
+                            args.damageMultAdd += playerDamage.Value / 100f;
+                            args.attackSpeedMultAdd += playerAttackSpeed.Value / 100f;
+                            args.critAdd += playerCrit.Value / 100f;
+                            args.critDamageMultAdd += playerCritDamage.Value / 100f;
+                            args.armorAdd += playerArmor.Value;
+                            args.baseCurseAdd += playerCurse.Value / 100f;
+                            args.cooldownMultAdd += playerCooldowns.Value / 100f;
+                        }
                         args.healthMultAdd += allyMaxHealth.Value / 100f;
+                        args.baseShieldAdd += sender.maxHealth * allyMaxShield.Value / 100f;
+                        args.regenMultAdd += allyRegen.Value / 100f;
+                        args.baseRegenAdd += allyBaseRegen.Value;
+                        if (allySpeed.Value > 0f) args.moveSpeedMultAdd += allySpeed.Value / 100f;
+                        else args.moveSpeedReductionMultAdd -= allySpeed.Value / 100f;
+                        args.jumpPowerMultAdd += allyJumpPower.Value / 100f;
+                        args.damageMultAdd += allyDamage.Value / 100f;
+                        args.attackSpeedMultAdd += allyAttackSpeed.Value / 100f;
+                        args.critAdd += allyCrit.Value / 100f;
+                        args.critDamageMultAdd += allyCritDamage.Value / 100f;
                         args.armorAdd += allyArmor.Value;
+                        args.baseCurseAdd += allyCurse.Value / 100f;
+                        args.cooldownMultAdd += allyCooldowns.Value / 100f;
                         break;
                     case TeamIndex.Monster:
+                        args.healthMultAdd += enemyMaxHealth.Value / 100f;
+                        args.baseShieldAdd += sender.maxHealth * enemyMaxShield.Value / 100f;
+                        args.regenMultAdd += enemyRegen.Value / 100f;
+                        args.baseRegenAdd += enemyBaseRegen.Value;
                         if (enemySpeed.Value > 0f) args.moveSpeedMultAdd += enemySpeed.Value / 100f;
                         else args.moveSpeedReductionMultAdd -= enemySpeed.Value / 100f;
+                        args.jumpPowerMultAdd += enemyJumpPower.Value / 100f;
+                        args.damageMultAdd += enemyDamage.Value / 100f;
+                        args.attackSpeedMultAdd += enemyAttackSpeed.Value / 100f;
+                        args.critAdd += enemyCrit.Value / 100f;
+                        args.critDamageMultAdd += enemyCritDamage.Value / 100f;
+                        args.armorAdd += enemyArmor.Value;
+                        args.baseCurseAdd += enemyCurse.Value / 100f;
                         args.cooldownMultAdd += enemyCooldowns.Value / 100f;
                         break;
                 }
@@ -398,9 +437,17 @@ namespace ConfigurableDifficulty
                 c.Emit(OpCodes.Ldarg, healAmountPos);
                 c.EmitDelegate<System.Func<HealthComponent, float, float>>((hc, healAmount) =>
                 {
-                    if (hc.body.teamComponent.teamIndex == TeamIndex.Player && Run.instance.selectedDifficulty == configurableDifficultyIndex)
+                    if (Run.instance.selectedDifficulty == configurableDifficultyIndex)
                     {
-                        healAmount *= Mathf.Max(1f + allyHealing.Value / 100f, 0f);
+                        switch (hc.body.teamComponent.teamIndex)
+                        {
+                            case TeamIndex.Player:
+                                healAmount *= Mathf.Max(1f + allyHealing.Value / 100f, 0f);
+                                break;
+                            case TeamIndex.Monster:
+                                healAmount *= Mathf.Max(1f + enemyHealing.Value / 100f, 0f);
+                                break;
+                        }
                     }
                     return healAmount;
                 });
@@ -440,6 +487,7 @@ namespace ConfigurableDifficulty
         {
             orig(self);
             self.calcRadius += HoldoutZoneController_calcRadius;
+            self.calcChargeRate += HoldoutZoneController_calcChargeRate;
         }
 
         private void HoldoutZoneController_calcRadius(ref float radius)
@@ -448,6 +496,21 @@ namespace ConfigurableDifficulty
             {
                 radius *= Mathf.Max(1f + teleporterRadius.Value / 100f, 0f);
             }
+        }
+
+        private void HoldoutZoneController_calcChargeRate(ref float rate)
+        {
+            if (Run.instance.selectedDifficulty == configurableDifficultyIndex)
+            {
+                rate *= 1f + teleporterChargeSpeed.Value / 100f;
+            }
+        }
+
+        private void HoldoutZoneController_FixedUpdate(On.RoR2.HoldoutZoneController.orig_FixedUpdate orig, HoldoutZoneController self)
+        {
+            self.dischargeRate += teleporterDischargeSpeed.Value / 100f;
+            orig(self);
+            self.dischargeRate -= teleporterDischargeSpeed.Value / 100f;
         }
 
         private bool ambientLevelCapChanged = false;
@@ -478,13 +541,26 @@ namespace ConfigurableDifficulty
         {
             if (damageInfo != null && damageInfo.damageType.HasFlag(DamageType.FallDamage) && Run.instance.selectedDifficulty == configurableDifficultyIndex)
             {
-                if (self.body && self.body.teamComponent.teamIndex == TeamIndex.Player)
+                if (self.body)
                 {
-                    damageInfo.damage *= 1f + allyFallDamage.Value / 100f;
-                    if (allyFallDamageIsLethal.Value)
+                    switch (self.body.teamComponent.teamIndex)
                     {
-                        damageInfo.damageType &= ~DamageType.NonLethal;
-                        damageInfo.damageType |= DamageType.BypassOneShotProtection;
+                        case TeamIndex.Player:
+                            damageInfo.damage *= 1f + allyFallDamage.Value / 100f;
+                            if (allyFallDamageIsLethal.Value)
+                            {
+                                damageInfo.damageType &= ~DamageType.NonLethal;
+                                damageInfo.damageType |= DamageType.BypassOneShotProtection;
+                            }
+                            break;
+                        case TeamIndex.Monster:
+                            damageInfo.damage *= 1f + enemyFallDamage.Value / 100f;
+                            if (enemyFallDamageIsLethal.Value)
+                            {
+                                damageInfo.damageType &= ~DamageType.NonLethal;
+                                damageInfo.damageType |= DamageType.BypassOneShotProtection;
+                            }
+                            break;
                     }
                 }
             }
@@ -515,13 +591,30 @@ namespace ConfigurableDifficulty
 
             public void OnTakeDamageServer(DamageReport damageReport)
             {
-                if (victimBody && victimBody.teamComponent.teamIndex == TeamIndex.Player && Run.instance.selectedDifficulty == configurableDifficultyIndex)
+                if (victimBody && Run.instance.selectedDifficulty == configurableDifficultyIndex)
                 {
-                    float takenDamagePercent = damageReport.damageDealt / healthComponent.fullCombinedHealth * 100f;
-                    int permanentDamage = Mathf.FloorToInt(takenDamagePercent * allyPermanentDamage.Value / 100f);
-                    for (int l = 0; l < permanentDamage; l++)
+                    switch (victimBody.teamComponent.teamIndex)
                     {
-                        victimBody.AddBuff(RoR2Content.Buffs.PermanentCurse);
+                        case TeamIndex.Player:
+                            {
+                                float takenDamagePercent = damageReport.damageDealt / healthComponent.fullCombinedHealth * 100f;
+                                int permanentDamage = Mathf.FloorToInt(takenDamagePercent * allyPermanentDamage.Value / 100f);
+                                for (int l = 0; l < permanentDamage; l++)
+                                {
+                                    victimBody.AddBuff(RoR2Content.Buffs.PermanentCurse);
+                                }
+                            }
+                            break;
+                        case TeamIndex.Monster:
+                            {
+                                float takenDamagePercent = damageReport.damageDealt / healthComponent.fullCombinedHealth * 100f;
+                                int permanentDamage = Mathf.FloorToInt(takenDamagePercent * enemyPermanentDamage.Value / 100f);
+                                for (int l = 0; l < permanentDamage; l++)
+                                {
+                                    victimBody.AddBuff(RoR2Content.Buffs.PermanentCurse);
+                                }
+                            }
+                            break;
                     }
                 }
             }
