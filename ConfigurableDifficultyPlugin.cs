@@ -580,12 +580,18 @@ namespace ConfigurableDifficulty
 
         public static void OnConfigReloaded()
         {
-            playerRegen.Value = Mathf.Clamp(playerRegen.Value, 0f, 100f);
+            teleporterRadius.Value = Mathf.Max(teleporterRadius.Value, -100f);
+            
+            allyStartingHealth.Value = Mathf.Clamp(allyStartingHealth.Value, 0f, 100f);
             allyHealing.Value = Mathf.Max(allyHealing.Value, -100f);
             allyFallDamage.Value = Mathf.Max(allyFallDamage.Value, -100f);
             allyPermanentDamage.Value = Mathf.Max(allyPermanentDamage.Value, 0f);
+
+            enemyStartingHealth.Value = Mathf.Clamp(enemyStartingHealth.Value, 0f, 100f);
+            enemyHealing.Value = Mathf.Max(enemyHealing.Value, -100f);
+            enemyFallDamage.Value = Mathf.Max(enemyFallDamage.Value, -100f);
+            enemyPermanentDamage.Value = Mathf.Max(enemyPermanentDamage.Value, 0f);
             enemyGoldDrops.Value = Mathf.Max(enemyGoldDrops.Value, -100f);
-            teleporterRadius.Value = Mathf.Max(teleporterRadius.Value, -100f);
 
             SetConfigRelatedDifficultyDefValues();
             RefreshItemLists();
