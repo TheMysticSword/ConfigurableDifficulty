@@ -236,9 +236,17 @@ namespace ConfigurableDifficulty
                 HealthComponent healthComponent = body.healthComponent;
                 if (healthComponent)
                 {
-                    if (self.teamIndex == TeamIndex.Player && Run.instance.selectedDifficulty == configurableDifficultyIndex)
+                    if (Run.instance.selectedDifficulty == configurableDifficultyIndex)
                     {
-                        healthComponent.Networkhealth = healthComponent.fullHealth * allyStartingHealth.Value / 100f;
+                        switch (self.teamIndex)
+                        {
+                            case TeamIndex.Player:
+                                healthComponent.Networkhealth = healthComponent.fullHealth * allyStartingHealth.Value / 100f;
+                                break;
+                            case TeamIndex.Monster:
+                                healthComponent.Networkhealth = healthComponent.fullHealth * enemyStartingHealth.Value / 100f;
+                                break;
+                        }
                     }
                 }
             }
