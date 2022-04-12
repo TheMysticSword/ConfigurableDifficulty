@@ -25,21 +25,79 @@ namespace ConfigurableDifficulty
         public const string PluginName = "ConfigurableDifficulty";
         public const string PluginVersion = "1.0.1";
 
+        // General
         public static ConfigEntry<float> difficultyScaling;
+        public static ConfigEntry<float> teleporterRadius;
+        public static ConfigEntry<float> teleporterChargeSpeed;
+        public static ConfigEntry<float> teleporterDischargeSpeed;
+        public static ConfigEntry<int> ambientLevelCap;
+        public static ConfigEntry<bool> countsAsHardMode;
+
+        // Player stats
+        public static ConfigEntry<float> playerMaxHealth;
+        public static ConfigEntry<float> playerMaxShield;
         public static ConfigEntry<float> playerRegen;
-        public static ConfigEntry<float> allyStartingHealth;
+        public static ConfigEntry<float> playerBaseRegen;
+        public static ConfigEntry<float> playerSpeed;
+        public static ConfigEntry<float> playerJumpPower;
+        public static ConfigEntry<float> playerDamage;
+        public static ConfigEntry<float> playerAttackSpeed;
+        public static ConfigEntry<float> playerCrit;
+        public static ConfigEntry<float> playerCritDamage;
+        public static ConfigEntry<float> playerArmor;
+        public static ConfigEntry<float> playerCurse;
+        public static ConfigEntry<float> playerCooldowns;
+
+        // Player modifiers
+        public static ConfigEntry<string> playerStartingItems;
+        public static ConfigEntry<string> playerStartingEquipment;
+
+        // Ally stats
         public static ConfigEntry<float> allyMaxHealth;
-        public static ConfigEntry<float> allyHealing;
+        public static ConfigEntry<float> allyMaxShield;
+        public static ConfigEntry<float> allyRegen;
+        public static ConfigEntry<float> allyBaseRegen;
+        public static ConfigEntry<float> allySpeed;
+        public static ConfigEntry<float> allyJumpPower;
+        public static ConfigEntry<float> allyDamage;
+        public static ConfigEntry<float> allyAttackSpeed;
+        public static ConfigEntry<float> allyCrit;
+        public static ConfigEntry<float> allyCritDamage;
         public static ConfigEntry<float> allyArmor;
+        public static ConfigEntry<float> allyCurse;
+        public static ConfigEntry<float> allyCooldowns;
+
+        // Ally modifiers
+        public static ConfigEntry<float> allyStartingHealth;
+        public static ConfigEntry<float> allyHealing;
         public static ConfigEntry<float> allyFallDamage;
         public static ConfigEntry<bool> allyFallDamageIsLethal;
         public static ConfigEntry<float> allyPermanentDamage;
+        public static ConfigEntry<string> allyStartingItems;
+
+        // Enemy stats
+        public static ConfigEntry<float> enemyMaxHealth;
+        public static ConfigEntry<float> enemyMaxShield;
+        public static ConfigEntry<float> enemyRegen;
+        public static ConfigEntry<float> enemyBaseRegen;
         public static ConfigEntry<float> enemySpeed;
+        public static ConfigEntry<float> enemyJumpPower;
+        public static ConfigEntry<float> enemyDamage;
+        public static ConfigEntry<float> enemyAttackSpeed;
+        public static ConfigEntry<float> enemyCrit;
+        public static ConfigEntry<float> enemyCritDamage;
+        public static ConfigEntry<float> enemyArmor;
+        public static ConfigEntry<float> enemyCurse;
         public static ConfigEntry<float> enemyCooldowns;
+
+        // Enemy modifiers
+        public static ConfigEntry<float> enemyStartingHealth;
+        public static ConfigEntry<float> enemyHealing;
+        public static ConfigEntry<float> enemyFallDamage;
+        public static ConfigEntry<bool> enemyFallDamageIsLethal;
+        public static ConfigEntry<float> enemyPermanentDamage;
         public static ConfigEntry<float> enemyGoldDrops;
-        public static ConfigEntry<float> teleporterRadius;
-        public static ConfigEntry<int> ambientLevelCap;
-        public static ConfigEntry<bool> countsAsHardMode;
+        public static ConfigEntry<string> enemyStartingItems;
 
         public static DifficultyDef configurableDifficultyDef;
         public static DifficultyIndex configurableDifficultyIndex;
@@ -51,21 +109,73 @@ namespace ConfigurableDifficulty
             CommandHelper.AddToConsoleWhenReady();
 
             config = new ConfigFile(Paths.ConfigPath + "\\ConfigurableDifficulty.cfg", true);
-            difficultyScaling = config.Bind("", "DifficultyScaling", 50f, "Difficulty scaling over time (in %). Set to positive values to increase scaling, set to negative values to reduce it.");
-            playerRegen = config.Bind("", "PlayerRegen", -40f, "Player health regeneration (in %). Set to positive values to increase regen, set to negative values to reduce it.");
-            allyStartingHealth = config.Bind("", "AllyStartingHealth", 50f, "Ally starting health (in %). Set between 0-100% to change how much health allies spawn with.");
-            allyMaxHealth = config.Bind("", "AllyMaxHealth", 0f, "Ally maximum health (in %). Set to positive values to increase health, set to negative values to reduce it.");
-            allyHealing = config.Bind("", "AllyHealing", -50f, "Ally healing (in %). Set to positive values to increase healing, set to negative values to reduce it. Values of -100% and below make healing 0.");
-            allyArmor = config.Bind("", "AllyArmor", 0f, "Ally armor. Set to positive values to increase armor, set to negative values to reduce it.");
-            allyFallDamage = config.Bind("", "AllyFallDamage", 100f, "Ally fall damage (in %). Set to positive values to increase fall damage, set to negative values to reduce it. Values of -100% and below make fall damage 0.");
-            allyFallDamageIsLethal = config.Bind("", "AllyFallDamageIsLethal", true, "Allies can die from fall damage.");
-            allyPermanentDamage = config.Bind("", "AllyPermanentDamage", 40f, "Whenever an ally takes damage, their maximum health is reduced by a portion of taken damage (in %). Set to positive values to increase permanent damage, set to negative values to reduce it. Values of 0% and below disable permanent damage.");
-            enemySpeed = config.Bind("", "EnemySpeed", 40f, "Enemy movement speed (in %). Set to positive values to increase speed, set to negative values to reduce it.");
-            enemyCooldowns = config.Bind("", "EnemyCooldowns", -50f, "Enemy skill cooldowns (in %). Set to positive values to increase cooldowns, set to negative values to reduce them.");
-            enemyGoldDrops = config.Bind("", "EnemyGoldDrops", -20f, "Enemy gold drops (in %). Set to positive values to increase gold drops, set to negative values to reduce them. Values of -100% and below set gold drops to 0.");
-            teleporterRadius = config.Bind("", "TeleporterRadius", -50f, "Teleporter radius (in %). Set to positive values to increase the radius, set to negative values to reduce it. Values of -100% and below make the radius 0.");
-            ambientLevelCap = config.Bind("", "AmbientLevelCap", 99, "Ambient level cap. Ambient level affects monsters and NPC allies.");
-            countsAsHardMode = config.Bind("", "CountsAsHardMode", true, "Completing a run on this difficulty will unlock the selected survivor's Mastery skin.");
+            
+            difficultyScaling = config.Bind("General", "DifficultyScaling", 50f, "Difficulty scaling over time (in %)");
+            teleporterRadius = config.Bind("General", "TeleporterRadius", -50f, "Teleporter radius (in %). Values of -100% and below set the radius to 0m.");
+            teleporterChargeSpeed = config.Bind("General", "TeleporterChargeSpeed", 0f, "Teleporter charge speed (in %). Values of -100% and below make the teleporter unchargeable.");
+            teleporterDischargeSpeed = config.Bind("General", "TeleporterDischargeSpeed", 0f, "Teleporter discharge speed when all players are outside the radius (in % per second)");
+            ambientLevelCap = config.Bind("General", "AmbientLevelCap", 99, "Ambient level cap. Ambient level affects monsters and NPC allies.");
+            countsAsHardMode = config.Bind("General", "CountsAsHardMode", true, "Completing a run on this difficulty will unlock the selected survivor's Mastery skin.");
+
+            playerMaxHealth = config.Bind("Player stats", "PlayerMaxHealth", 0f, "Player maximum health (in %)");
+            playerMaxShield = config.Bind("Player stats", "PlayerMaxShield", 0f, "Player maximum shield (in %)");
+            playerRegen = config.Bind("Player stats", "PlayerRegen", -40f, "Player health regeneration (in %)");
+            playerBaseRegen = config.Bind("Player stats", "PlayerBaseRegen", 0f, "Player base health regeneration (in HP/s)");
+            playerSpeed = config.Bind("Player stats", "PlayerSpeed", 0f, "Player movement speed (in %)");
+            playerJumpPower = config.Bind("Player stats", "PlayerJumpPower", 0f, "Player jump power (in %)");
+            playerDamage = config.Bind("Player stats", "PlayerDamage", 0f, "Player damage (in %)");
+            playerAttackSpeed = config.Bind("Player stats", "PlayerAttackSpeed", 0f, "Player attack speed (in %)");
+            playerCrit = config.Bind("Player stats", "PlayerCrit", 0f, "Player critical strike chance (in %)");
+            playerCritDamage = config.Bind("Player stats", "PlayerCritDamage", 0f, "Player critical strike chance damage (in %)");
+            playerArmor = config.Bind("Player stats", "PlayerArmor", 0f, "Player armor");
+            playerCurse = config.Bind("Player stats", "PlayerCurse", 0f, "Player maximum health reduction");
+            playerCooldowns = config.Bind("Player stats", "PlayerCooldowns", 0f, "Player skill cooldowns");
+
+            playerStartingItems = config.Bind("Player modifiers", "PlayerStartingItems", "", "Player starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99");
+            playerStartingEquipment = config.Bind("Player modifiers", "PlayerStartingEquipment", "", "Player starting equipment. Uses the internal equipment name. Example: GoldGat");
+
+            allyMaxHealth = config.Bind("Ally stats", "AllyMaxHealth", 0f, "Ally maximum health (in %)");
+            allyMaxShield = config.Bind("Ally stats", "AllyMaxShield", 0f, "Ally maximum shield (in %)");
+            allyRegen = config.Bind("Ally stats", "AllyRegen", 0f, "Ally health regeneration (in %)");
+            allyBaseRegen = config.Bind("Player stats", "AllyBaseRegen", 0f, "Ally base health regeneration (in HP/s)");
+            allySpeed = config.Bind("Ally stats", "AllySpeed", 0f, "Ally movement speed (in %)");
+            allyJumpPower = config.Bind("Ally stats", "AllyJumpPower", 0f, "Ally jump power (in %)");
+            allyDamage = config.Bind("Ally stats", "AllyDamage", 0f, "Ally damage (in %)");
+            allyAttackSpeed = config.Bind("Ally stats", "AllyAttackSpeed", 0f, "Ally attack speed (in %)");
+            allyCrit = config.Bind("Ally stats", "AllyCrit", 0f, "Ally critical strike chance (in %)");
+            allyCritDamage = config.Bind("Ally stats", "AllyCritDamage", 0f, "Ally critical strike chance damage (in %)");
+            allyArmor = config.Bind("Ally stats", "AllyArmor", 0f, "Ally armor");
+            allyCurse = config.Bind("Ally stats", "AllyCurse", 0f, "Ally maximum health reduction");
+            allyCooldowns = config.Bind("Ally stats", "AllyCooldowns", 0f, "Ally skill cooldowns");
+
+            allyStartingHealth = config.Bind("Ally modifiers", "AllyStartingHealth", 50f, "Ally starting health (in %, between 0-100%)");
+            allyHealing = config.Bind("Ally modifiers", "AllyHealing", -50f, "Ally healing (in %). Values of -100% and below disable ally healing.");
+            allyFallDamage = config.Bind("Ally modifiers", "AllyFallDamage", 100f, "Ally fall damage (in %). Values of -100% and below disable ally fall damage.");
+            allyFallDamageIsLethal = config.Bind("Ally modifiers", "AllyFallDamageIsLethal", true, "Allies can die from fall damage.");
+            allyPermanentDamage = config.Bind("Ally modifiers", "AllyPermanentDamage", 40f, "Whenever an ally takes damage, their maximum health is reduced by a portion of taken damage (in %). Values of 0% and below disable permanent damage.");
+            allyStartingItems = config.Bind("Ally modifiers", "AllyStartingItems", "", "Ally starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99");
+
+            enemyMaxHealth = config.Bind("Enemy stats", "EnemyMaxHealth", 0f, "Enemy maximum health (in %)");
+            enemyMaxShield = config.Bind("Enemy stats", "EnemyMaxShield", 0f, "Enemy maximum shield (in %)");
+            enemyRegen = config.Bind("Enemy stats", "EnemyRegen", 0f, "Enemy health regeneration (in %)");
+            enemyBaseRegen = config.Bind("Player stats", "EnemyBaseRegen", 0f, "Enemy base health regeneration (in HP/s)");
+            enemySpeed = config.Bind("Enemy stats", "EnemySpeed", 40f, "Enemy movement speed (in %)");
+            enemyJumpPower = config.Bind("Enemy stats", "EnemyJumpPower", 0f, "Enemy jump power (in %)");
+            enemyDamage = config.Bind("Enemy stats", "EnemyDamage", 0f, "Enemy damage (in %)");
+            enemyAttackSpeed = config.Bind("Enemy stats", "EnemyAttackSpeed", 0f, "Enemy attack speed (in %)");
+            enemyCrit = config.Bind("Enemy stats", "EnemyCrit", 0f, "Enemy critical strike chance (in %)");
+            enemyCritDamage = config.Bind("Enemy stats", "EnemyCritDamage", 0f, "Enemy critical strike chance damage (in %)");
+            enemyArmor = config.Bind("Enemy stats", "EnemyArmor", 0f, "Enemy armor");
+            enemyCurse = config.Bind("Enemy stats", "EnemyCurse", 0f, "Enemy maximum health reduction");
+            enemyCooldowns = config.Bind("Enemy stats", "EnemyCooldowns", -50f, "Enemy skill cooldowns");
+
+            enemyStartingHealth = config.Bind("Enemy modifiers", "EnemyStartingHealth", 100f, "Enemy starting health (in %, between 0-100%)");
+            enemyHealing = config.Bind("Enemy modifiers", "EnemyHealing", 0f, "Enemy healing (in %). Values of -100% and below disable enemy healing.");
+            enemyFallDamage = config.Bind("Enemy modifiers", "EnemyFallDamage", 0f, "Enemy fall damage (in %). Values of -100% and below disable enemy fall damage.");
+            enemyFallDamageIsLethal = config.Bind("Enemy modifiers", "EnemyFallDamageIsLethal", false, "Allies can die from fall damage.");
+            enemyPermanentDamage = config.Bind("Enemy modifiers", "EnemyPermanentDamage", 0f, "Whenever an enemy takes damage, their maximum health is reduced by a portion of taken damage (in %). Values of 0% and below disable permanent damage.");
+            enemyGoldDrops = config.Bind("Enemy modifiers", "EnemyGoldDrops", -20f, "Enemy gold drops (in %). Set to positive values to increase gold drops, set to negative values to reduce them. Values of -100% and below set gold drops to 0.");
+            enemyStartingItems = config.Bind("Enemy modifiers", "EnemyStartingItems", "", "Enemy starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99");
 
             OnConfigReloaded();
 
