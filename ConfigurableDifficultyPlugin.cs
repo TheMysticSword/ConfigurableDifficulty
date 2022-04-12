@@ -6,6 +6,7 @@ using R2API;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
@@ -187,7 +188,7 @@ namespace ConfigurableDifficulty
                 2f,
                 "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_NAME",
                 null,
-                "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION",
+                "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_DYNAMIC",
                 new Color32(181, 206, 195, 255),
                 "mod_cfgdif",
                 false
@@ -196,6 +197,7 @@ namespace ConfigurableDifficulty
             configurableDifficultyIndex = DifficultyAPI.AddDifficulty(configurableDifficultyDef, assetBundle.LoadAsset<Sprite>("Assets/Misc/Textures/texConfigurableDifficultyIcon.png"));
 
             On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
+            RoR2.Language.onCurrentLanguageChanged += Language_onCurrentLanguageChanged;
 
             On.RoR2.CharacterMaster.OnBodyStart += CharacterMaster_OnBodyStart;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
@@ -207,141 +209,20 @@ namespace ConfigurableDifficulty
             On.RoR2.HealthComponent.Awake += HealthComponent_Awake;
         }
 
-        private struct ConfigurableDifficultyDescriptionSection
-        {
-            public ConfigEntry<float> configEntryFloat;
-            public ConfigEntry<int> configEntryInt;
-            public ConfigEntry<bool> configEntryBool;
-            public bool isDelta;
-            public float deltaStartingValue;
-            public bool moreIsBetter;
-            public bool showOnlyIfValueIsDifferent;
-            public bool showIfTrue;
-
-            public ConfigurableDifficultyDescriptionSection(ConfigEntry<float> configEntry, bool isDelta = true, float deltaStartingValue = 0f, bool moreIsBetter = true, bool showOnlyIfValueIsDifferent = false)
-            {
-                this.configEntryFloat = configEntry;
-                this.configEntryInt = null;
-                this.configEntryBool = null;
-                this.isDelta = isDelta;
-                this.deltaStartingValue = deltaStartingValue;
-                this.moreIsBetter = moreIsBetter;
-                this.showOnlyIfValueIsDifferent = showOnlyIfValueIsDifferent;
-                this.showIfTrue = true;
-            }
-
-            public ConfigurableDifficultyDescriptionSection(ConfigEntry<int> configEntry, bool isDelta = true, float deltaStartingValue = 0f, bool moreIsBetter = true, bool showOnlyIfValueIsDifferent = false)
-            {
-                this.configEntryFloat = null;
-                this.configEntryInt = configEntry;
-                this.configEntryBool = null;
-                this.isDelta = isDelta;
-                this.deltaStartingValue = deltaStartingValue;
-                this.moreIsBetter = moreIsBetter;
-                this.showOnlyIfValueIsDifferent = showOnlyIfValueIsDifferent;
-                this.showIfTrue = true;
-            }
-
-            public ConfigurableDifficultyDescriptionSection(ConfigEntry<bool> configEntry, bool showIfTrue = true)
-            {
-                this.configEntryFloat = null;
-                this.configEntryInt = null;
-                this.configEntryBool = configEntry;
-                this.isDelta = false;
-                this.deltaStartingValue = 0f;
-                this.moreIsBetter = false;
-                this.showOnlyIfValueIsDifferent = false;
-                this.showIfTrue = showIfTrue;
-            }
-        }
         private string Language_GetLocalizedStringByToken(On.RoR2.Language.orig_GetLocalizedStringByToken orig, Language self, string token)
         {
-            var result = orig(self, token);
-            if (token == configurableDifficultyDef.descriptionToken)
-            {
-                StringBuilder stringBuilder = new StringBuilder(result);
-                
-                var sections = new List<ConfigurableDifficultyDescriptionSection>()
-                {
-                    new ConfigurableDifficultyDescriptionSection(difficultyScaling, moreIsBetter: false),
-                    new ConfigurableDifficultyDescriptionSection(playerRegen),
-                    new ConfigurableDifficultyDescriptionSection(allyStartingHealth, deltaStartingValue: 100f),
-                    new ConfigurableDifficultyDescriptionSection(allyMaxHealth),
-                    new ConfigurableDifficultyDescriptionSection(allyHealing),
-                    new ConfigurableDifficultyDescriptionSection(allyArmor),
-                    new ConfigurableDifficultyDescriptionSection(allyFallDamage, moreIsBetter: false),
-                    new ConfigurableDifficultyDescriptionSection(allyFallDamageIsLethal),
-                    new ConfigurableDifficultyDescriptionSection(allyPermanentDamage, moreIsBetter: false),
-                    new ConfigurableDifficultyDescriptionSection(enemySpeed, moreIsBetter: false),
-                    new ConfigurableDifficultyDescriptionSection(enemyCooldowns),
-                    new ConfigurableDifficultyDescriptionSection(enemyGoldDrops),
-                    new ConfigurableDifficultyDescriptionSection(teleporterRadius),
-                    new ConfigurableDifficultyDescriptionSection(ambientLevelCap, isDelta: false, showOnlyIfValueIsDifferent: true),
-                    new ConfigurableDifficultyDescriptionSection(countsAsHardMode)
-                };
+            if (langTokenStrings.ContainsKey(self.name) && langTokenStrings[self.name].ContainsKey(token))
+                return langTokenStrings[self.name][token];
 
-                var sectionTokenPrefix = "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_";
-                bool atLeastOneRuleChanged = false;
-                void TryAddFirstNewline()
-                {
-                    if (!atLeastOneRuleChanged)
-                    {
-                        stringBuilder.Append(System.Environment.NewLine);
-                        atLeastOneRuleChanged = true;
-                    }
-                }
+            if (Language.english != null && langTokenStrings.ContainsKey(Language.english.name) && langTokenStrings[Language.english.name].ContainsKey(token))
+                return langTokenStrings[Language.english.name][token];
 
-                foreach (var section in sections)
-                {
-                    if (section.configEntryFloat != null || section.configEntryInt != null)
-                    {
-                        var name = "";
-                        var value = 0f;
-                        var defaultValue = 0f;
-                        if (section.configEntryFloat != null)
-                        {
-                            name = section.configEntryFloat.Definition.Key;
-                            value = section.configEntryFloat.Value;
-                            defaultValue = (float)section.configEntryFloat.DefaultValue;
-                        }
-                        if (section.configEntryInt != null)
-                        {
-                            name = section.configEntryInt.Definition.Key;
-                            value = section.configEntryInt.Value;
-                            defaultValue = (int)section.configEntryInt.DefaultValue;
-                        }
-                        if ((section.isDelta && value != section.deltaStartingValue || !section.isDelta) && (section.showOnlyIfValueIsDifferent && value != defaultValue || !section.showOnlyIfValueIsDifferent))
-                        {
-                            var formattedValue = Mathf.RoundToInt(Mathf.Abs(section.isDelta ? section.deltaStartingValue - value : value)).ToString();
-                            if (section.isDelta)
-                            {
-                                var style = value > section.deltaStartingValue == section.moreIsBetter ? "<style=cIsHealing>" : "<style=cIsHealth>";
-                                formattedValue = style + (value > section.deltaStartingValue ? "+" : "-") + formattedValue;
-                            }
+            return orig(self, token);
+        }
 
-                            TryAddFirstNewline();
-                            stringBuilder.Append(System.Environment.NewLine);
-                            stringBuilder.Append(self.GetLocalizedFormattedStringByToken(sectionTokenPrefix + name.ToUpperInvariant(), formattedValue));
-                        }
-                    }
-                    if (section.configEntryBool != null && section.configEntryBool.Value == section.showIfTrue)
-                    {
-                        TryAddFirstNewline();
-                        stringBuilder.Append(System.Environment.NewLine);
-                        stringBuilder.Append(self.GetLocalizedStringByToken(sectionTokenPrefix + section.configEntryBool.Definition.Key.ToUpperInvariant()));
-                    }
-                }
-
-                if (!atLeastOneRuleChanged)
-                {
-                    stringBuilder.Append(System.Environment.NewLine);
-                    stringBuilder.Append(System.Environment.NewLine);
-                    stringBuilder.Append(self.GetLocalizedStringByToken("DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_NOCHANGES"));
-                }
-
-                result = stringBuilder.ToString();
-            }
-            return result;
+        private void Language_onCurrentLanguageChanged()
+        {
+            RequestConstructAllStrings();
         }
 
         private void CharacterMaster_OnBodyStart(On.RoR2.CharacterMaster.orig_OnBodyStart orig, CharacterMaster self, CharacterBody body)
@@ -642,6 +523,11 @@ namespace ConfigurableDifficulty
             else dict[token] = str;
         }
 
+        public static Dictionary<ItemIndex, int> playerStartingItemList = new Dictionary<ItemIndex, int>();
+        public static Dictionary<ItemIndex, int> allyStartingItemList = new Dictionary<ItemIndex, int>();
+        public static Dictionary<ItemIndex, int> enemyStartingItemList = new Dictionary<ItemIndex, int>();
+        public static EquipmentIndex playerStartingEquipmentIndex = EquipmentIndex.None;
+
         public static void OnConfigReloaded()
         {
             playerRegen.Value = Mathf.Clamp(playerRegen.Value, 0f, 100f);
@@ -652,6 +538,10 @@ namespace ConfigurableDifficulty
             teleporterRadius.Value = Mathf.Max(teleporterRadius.Value, -100f);
 
             SetConfigRelatedDifficultyDefValues();
+            RefreshItemLists();
+            RefreshEquipment();
+
+            RequestConstructAllStrings();
         }
 
         public static void SetConfigRelatedDifficultyDefValues()
@@ -661,6 +551,356 @@ namespace ConfigurableDifficulty
                 configurableDifficultyDef.scalingValue = 2f + difficultyScaling.Value / 50f;
                 configurableDifficultyDef.countsAsHardMode = countsAsHardMode.Value;
             }
+        }
+
+        public static void RefreshItemLists()
+        {
+            ItemCatalog.availability.CallWhenAvailable(() =>
+            {
+                void RefreshItemList(string configString, Dictionary<ItemIndex, int> itemList, string listName)
+                {
+                    itemList.Clear();
+                    if (configString.Length > 0)
+                    {
+                        var splitString = configString.Trim().Split(',');
+                        foreach (var singleString in splitString)
+                        {
+                            var singleStringSplit = singleString.Split(':');
+                            var itemName = singleStringSplit[0];
+                            var itemCount = singleStringSplit.Length >= 2 && int.TryParse(singleStringSplit[1], System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var ic) ? Mathf.Max(ic, 1) : 1;
+                            var itemIndex = ItemCatalog.FindItemIndex(itemName);
+                            if (itemIndex != ItemIndex.None)
+                            {
+                                itemList.Add(itemIndex, itemCount);
+                            }
+                            else
+                            {
+                                logger.LogError(string.Format("Item with internal name \"{0}\" wasn't found and won't be added to item list {1}", itemName, listName));
+                            }
+                        }
+                    }
+                }
+
+                RefreshItemList(playerStartingItems.Value, playerStartingItemList, "PLAYERSTARTINGITEMS");
+                RefreshItemList(allyStartingItems.Value, allyStartingItemList, "ALLYSTARTINGITEMS");
+                RefreshItemList(enemyStartingItems.Value, enemyStartingItemList, "ENEMYSTARTINGITEMS");
+
+                RequestConstructAllStrings();
+            });
+        }
+
+        public static void RefreshEquipment()
+        {
+            EquipmentCatalog.availability.CallWhenAvailable(() =>
+            {
+                void RefreshEquipmentSingle(string configString, ref EquipmentIndex equipmentIndex, string equipmentTypeName)
+                {
+                    configString = configString.Trim();
+                    if (configString.Length > 0)
+                    {
+                        var eq = EquipmentCatalog.FindEquipmentIndex(configString);
+                        if (eq != EquipmentIndex.None) equipmentIndex = eq;
+                        else logger.LogError(string.Format("Equipment with internal name \"{0}\" wasn't found and won't be set as {1}", configString, equipmentTypeName));
+                    }
+                }
+
+                RefreshEquipmentSingle(playerStartingEquipment.Value, ref playerStartingEquipmentIndex, "PLAYERSTARTINGEQUIPMENT");
+
+                RequestConstructAllStrings();
+            });
+        }
+
+        private struct ConfigurableDifficultyDescriptionSection
+        {
+            public ConfigEntry<float> configEntryFloat;
+            public ConfigEntry<int> configEntryInt;
+            public ConfigEntry<bool> configEntryBool;
+            public ConfigEntry<string> configEntryString;
+            public bool isDelta;
+            public float deltaStartingValue;
+            public bool moreIsBetter;
+            public bool showOnlyIfValueIsDifferent;
+            public bool showIfTrue;
+
+            public ConfigurableDifficultyDescriptionSection(ConfigEntry<float> configEntry, bool isDelta = true, float deltaStartingValue = 0f, bool moreIsBetter = true, bool showOnlyIfValueIsDifferent = false)
+            {
+                this.configEntryFloat = configEntry;
+                this.configEntryInt = null;
+                this.configEntryBool = null;
+                this.configEntryString = null;
+                this.isDelta = isDelta;
+                this.deltaStartingValue = deltaStartingValue;
+                this.moreIsBetter = moreIsBetter;
+                this.showOnlyIfValueIsDifferent = showOnlyIfValueIsDifferent;
+                this.showIfTrue = true;
+            }
+
+            public ConfigurableDifficultyDescriptionSection(ConfigEntry<int> configEntry, bool isDelta = true, float deltaStartingValue = 0f, bool moreIsBetter = true, bool showOnlyIfValueIsDifferent = false)
+            {
+                this.configEntryFloat = null;
+                this.configEntryInt = configEntry;
+                this.configEntryBool = null;
+                this.configEntryString = null;
+                this.isDelta = isDelta;
+                this.deltaStartingValue = deltaStartingValue;
+                this.moreIsBetter = moreIsBetter;
+                this.showOnlyIfValueIsDifferent = showOnlyIfValueIsDifferent;
+                this.showIfTrue = true;
+            }
+
+            public ConfigurableDifficultyDescriptionSection(ConfigEntry<bool> configEntry, bool showIfTrue = true)
+            {
+                this.configEntryFloat = null;
+                this.configEntryInt = null;
+                this.configEntryBool = configEntry;
+                this.configEntryString = null;
+                this.isDelta = false;
+                this.deltaStartingValue = 0f;
+                this.moreIsBetter = false;
+                this.showOnlyIfValueIsDifferent = false;
+                this.showIfTrue = showIfTrue;
+            }
+
+            public ConfigurableDifficultyDescriptionSection(ConfigEntry<string> configEntry, bool showOnlyIfValueIsDifferent = true)
+            {
+                this.configEntryFloat = null;
+                this.configEntryInt = null;
+                this.configEntryBool = null;
+                this.configEntryString = configEntry;
+                this.isDelta = false;
+                this.deltaStartingValue = 0f;
+                this.moreIsBetter = false;
+                this.showOnlyIfValueIsDifferent = showOnlyIfValueIsDifferent;
+                this.showIfTrue = true;
+            }
+        }
+        public static bool constructAllStringsPending = false;
+        public static bool constructAllStringsFixedUpdateSubbed = false;
+        public static void RequestConstructAllStrings()
+        {
+            constructAllStringsPending = true;
+
+            if (!constructAllStringsFixedUpdateSubbed)
+            {
+                constructAllStringsFixedUpdateSubbed = true;
+                RoR2Application.onFixedUpdate += () =>
+                {
+                    if (constructAllStringsPending)
+                    {
+                        constructAllStringsPending = false;
+
+                        if (Language.english != null) ConstructAllStrings(Language.english);
+                        if (Language.currentLanguage != null) ConstructAllStrings(Language.currentLanguage);
+                    }
+                };
+            }
+        }
+        public static void ConstructAllStrings(Language language)
+        {
+            ConstructItemListStrings(language);
+            ConstructEquipmentStrings(language);
+            ConstructDifficultyDescriptionString(language);
+        }
+        public static void ConstructItemListStrings(Language language)
+        {
+            void ConstructItemListString(Dictionary<ItemIndex, int> itemList, string listName)
+            {
+                var formattedItemListStringBuilder = new StringBuilder();
+                var firstItemAdded = false;
+                foreach (var kvp in itemList)
+                {
+                    var itemDef = ItemCatalog.GetItemDef(kvp.Key);
+                    if (itemDef)
+                    {
+                        if (!firstItemAdded) firstItemAdded = true;
+                        else formattedItemListStringBuilder.Append(", ");
+
+                        formattedItemListStringBuilder.AppendFormat(
+                            "{0}{1}",
+                            Util.GenerateColoredString(
+                                Language.currentLanguage.GetLocalizedStringByToken(itemDef.nameToken),
+                                ColorCatalog.GetColor(ItemTierCatalog.GetItemTierDef(itemDef.tier).colorIndex)
+                            ),
+                            kvp.Value > 1 ? "(" + kvp.Value + ")" : ""
+                        );
+                    }
+                }
+
+                AddOrReplaceLanguageString(
+                    language.name,
+                    "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_" + listName,
+                    language.GetLocalizedFormattedStringByToken(
+                        "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_ITEMLIST_" + listName,
+                        formattedItemListStringBuilder.ToString()
+                    )
+                );
+            }
+
+            ConstructItemListString(playerStartingItemList, "PLAYERSTARTINGITEMS");
+            ConstructItemListString(allyStartingItemList, "ALLYSTARTINGITEMS");
+            ConstructItemListString(enemyStartingItemList, "ENEMYSTARTINGITEMS");
+        }
+        public static void ConstructEquipmentStrings(Language language)
+        {
+            void ConstructEquipmentString(EquipmentIndex equipmentIndex, string equipmentTypeName)
+            {
+                var equipmentDef = EquipmentCatalog.GetEquipmentDef(equipmentIndex);
+                if (equipmentDef)
+                {
+                    AddOrReplaceLanguageString(
+                        language.name,
+                        "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_" + equipmentTypeName,
+                        language.GetLocalizedFormattedStringByToken(
+                            "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_EQUIPMENT_" + equipmentTypeName,
+                            Util.GenerateColoredString(
+                                Language.currentLanguage.GetLocalizedStringByToken(equipmentDef.nameToken),
+                                ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment)
+                            )
+                        )
+                    );
+                }
+            }
+
+            ConstructEquipmentString(playerStartingEquipmentIndex, "PLAYERSTARTINGEQUIPMENT");
+        }
+        public static void ConstructDifficultyDescriptionString(Language language)
+        {
+            StringBuilder stringBuilder = new StringBuilder(language.GetLocalizedStringByToken("DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION"));
+
+            var sections = new List<ConfigurableDifficultyDescriptionSection>()
+            {
+                new ConfigurableDifficultyDescriptionSection(difficultyScaling, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(teleporterRadius),
+                new ConfigurableDifficultyDescriptionSection(teleporterChargeSpeed),
+                new ConfigurableDifficultyDescriptionSection(teleporterDischargeSpeed, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(ambientLevelCap, isDelta: false, showOnlyIfValueIsDifferent: true),
+
+                new ConfigurableDifficultyDescriptionSection(playerMaxHealth),
+                new ConfigurableDifficultyDescriptionSection(playerMaxShield),
+                new ConfigurableDifficultyDescriptionSection(playerRegen),
+                new ConfigurableDifficultyDescriptionSection(playerSpeed),
+                new ConfigurableDifficultyDescriptionSection(playerJumpPower),
+                new ConfigurableDifficultyDescriptionSection(playerDamage),
+                new ConfigurableDifficultyDescriptionSection(playerAttackSpeed),
+                new ConfigurableDifficultyDescriptionSection(playerCrit),
+                new ConfigurableDifficultyDescriptionSection(playerCritDamage),
+                new ConfigurableDifficultyDescriptionSection(playerArmor),
+                new ConfigurableDifficultyDescriptionSection(playerCurse, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(playerCooldowns, moreIsBetter: false),
+
+                new ConfigurableDifficultyDescriptionSection(playerStartingItems),
+                new ConfigurableDifficultyDescriptionSection(playerStartingEquipment),
+
+                new ConfigurableDifficultyDescriptionSection(allyMaxHealth),
+                new ConfigurableDifficultyDescriptionSection(allyMaxShield),
+                new ConfigurableDifficultyDescriptionSection(allyRegen),
+                new ConfigurableDifficultyDescriptionSection(allySpeed),
+                new ConfigurableDifficultyDescriptionSection(allyJumpPower),
+                new ConfigurableDifficultyDescriptionSection(allyDamage),
+                new ConfigurableDifficultyDescriptionSection(allyAttackSpeed),
+                new ConfigurableDifficultyDescriptionSection(allyCrit),
+                new ConfigurableDifficultyDescriptionSection(allyCritDamage),
+                new ConfigurableDifficultyDescriptionSection(allyArmor),
+                new ConfigurableDifficultyDescriptionSection(allyCurse, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(allyCooldowns, moreIsBetter: false),
+
+                new ConfigurableDifficultyDescriptionSection(allyStartingHealth, deltaStartingValue: 100f),
+                new ConfigurableDifficultyDescriptionSection(allyHealing),
+                new ConfigurableDifficultyDescriptionSection(allyFallDamage, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(allyFallDamageIsLethal),
+                new ConfigurableDifficultyDescriptionSection(allyPermanentDamage, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(allyStartingItems),
+
+                new ConfigurableDifficultyDescriptionSection(enemyMaxHealth, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyMaxShield, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyRegen, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemySpeed, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyJumpPower, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyDamage, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyAttackSpeed, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyCrit, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyCritDamage, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyArmor, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyCurse),
+                new ConfigurableDifficultyDescriptionSection(enemyCooldowns),
+
+                new ConfigurableDifficultyDescriptionSection(enemyStartingHealth, deltaStartingValue: 100f),
+                new ConfigurableDifficultyDescriptionSection(enemyHealing, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyFallDamage),
+                new ConfigurableDifficultyDescriptionSection(enemyFallDamageIsLethal),
+                new ConfigurableDifficultyDescriptionSection(enemyPermanentDamage),
+                new ConfigurableDifficultyDescriptionSection(enemyGoldDrops),
+                new ConfigurableDifficultyDescriptionSection(enemyStartingItems),
+
+                new ConfigurableDifficultyDescriptionSection(countsAsHardMode)
+            };
+
+            var sectionTokenPrefix = "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_";
+            bool atLeastOneRuleChanged = false;
+            void TryAddFirstNewline()
+            {
+                if (!atLeastOneRuleChanged)
+                {
+                    stringBuilder.Append(System.Environment.NewLine);
+                    atLeastOneRuleChanged = true;
+                }
+            }
+
+            foreach (var section in sections)
+            {
+                if (section.configEntryFloat != null || section.configEntryInt != null)
+                {
+                    var name = "";
+                    var value = 0f;
+                    var defaultValue = 0f;
+                    if (section.configEntryFloat != null)
+                    {
+                        name = section.configEntryFloat.Definition.Key;
+                        value = section.configEntryFloat.Value;
+                        defaultValue = (float)section.configEntryFloat.DefaultValue;
+                    }
+                    if (section.configEntryInt != null)
+                    {
+                        name = section.configEntryInt.Definition.Key;
+                        value = section.configEntryInt.Value;
+                        defaultValue = (int)section.configEntryInt.DefaultValue;
+                    }
+                    if ((section.isDelta && value != section.deltaStartingValue || !section.isDelta) && (section.showOnlyIfValueIsDifferent && value != defaultValue || !section.showOnlyIfValueIsDifferent))
+                    {
+                        var formattedValue = Mathf.RoundToInt(Mathf.Abs(section.isDelta ? section.deltaStartingValue - value : value)).ToString();
+                        if (section.isDelta)
+                        {
+                            var style = value > section.deltaStartingValue == section.moreIsBetter ? "<style=cIsHealing>" : "<style=cIsHealth>";
+                            formattedValue = style + (value > section.deltaStartingValue ? "+" : "-") + formattedValue;
+                        }
+
+                        TryAddFirstNewline();
+                        stringBuilder.Append(System.Environment.NewLine);
+                        stringBuilder.Append(language.GetLocalizedFormattedStringByToken(sectionTokenPrefix + name.ToUpperInvariant(), formattedValue));
+                    }
+                }
+                if (section.configEntryBool != null && section.configEntryBool.Value == section.showIfTrue)
+                {
+                    TryAddFirstNewline();
+                    stringBuilder.Append(System.Environment.NewLine);
+                    stringBuilder.Append(language.GetLocalizedStringByToken(sectionTokenPrefix + section.configEntryBool.Definition.Key.ToUpperInvariant()));
+                }
+                if (section.configEntryString != null && (section.showOnlyIfValueIsDifferent && section.configEntryString.Value != (string)section.configEntryString.DefaultValue || !section.showOnlyIfValueIsDifferent))
+                {
+                    TryAddFirstNewline();
+                    stringBuilder.Append(System.Environment.NewLine);
+                    stringBuilder.Append(language.GetLocalizedStringByToken(sectionTokenPrefix + section.configEntryString.Definition.Key.ToUpperInvariant()));
+                }
+            }
+
+            if (!atLeastOneRuleChanged)
+            {
+                stringBuilder.Append(System.Environment.NewLine);
+                stringBuilder.Append(System.Environment.NewLine);
+                stringBuilder.Append(language.GetLocalizedStringByToken("DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_NOCHANGES"));
+            }
+
+            AddOrReplaceLanguageString(language.name, configurableDifficultyDef.descriptionToken, stringBuilder.ToString());
         }
     }
 }
