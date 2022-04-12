@@ -501,6 +501,45 @@ namespace ConfigurableDifficulty
             }
         }
 
+        private void CharacterMaster_Awake(On.RoR2.CharacterMaster.orig_Awake orig, CharacterMaster self)
+        {
+            orig(self);
+            if (Run.instance.selectedDifficulty == configurableDifficultyIndex)
+            {
+                switch (self.teamIndex)
+                {
+                    case TeamIndex.Player:
+                        if (self.playerCharacterMasterController)
+                        {
+                            foreach (var itemAndCount in playerStartingItemList)
+                                self.inventory.GiveItem(itemAndCount.Key, itemAndCount.Value);
+                            if (playerStartingEquipmentIndex != EquipmentIndex.None)
+                            {
+                                self.inventory.SetEquipment(new EquipmentState(playerStartingEquipmentIndex, Run.FixedTimeStamp.negativeInfinity, 1), 0);
+                            }
+                        }
+                        foreach (var itemAndCount in allyStartingItemList)
+                            self.inventory.GiveItem(itemAndCount.Key, itemAndCount.Value);
+                        break;
+                    case TeamIndex.Monster:
+                        foreach (var itemAndCount in enemyStartingItemList)
+                            self.inventory.GiveItem(itemAndCount.Key, itemAndCount.Value);
+                        break;
+                }
+            }
+        }
+
+        private void EnemyInfoPanel_SetDisplayDataForViewer(On.RoR2.UI.EnemyInfoPanel.orig_SetDisplayDataForViewer orig, RoR2.UI.HUD hud, List<BodyIndex> bodyIndices, ItemIndex[] itemAcquisitionOrderBuffer, int itemAcquisitonOrderLength, int[] itemStacks)
+        {
+            if (Run.instance && Run.instance.selectedDifficulty == configurableDifficultyIndex)
+            {
+                itemAcquisitionOrderBuffer = HG.ArrayUtils.Join(enemyStartingItemList.Keys.ToArray(), itemAcquisitionOrderBuffer);
+                itemAcquisitonOrderLength += enemyStartingItemList.Count;
+                itemStacks = HG.ArrayUtils.Join(enemyStartingItemList.Values.ToArray(), itemStacks);
+            }
+            orig(hud, bodyIndices, itemAcquisitionOrderBuffer, itemAcquisitonOrderLength, itemStacks);
+        }
+
         [ConCommand(commandName = "mod_cfgdif_reload", flags = ConVarFlags.None, helpText = "Reload the config file of ConfigurableDifficulty.")]
         private static void CCReloadConfig(ConCommandArgs args)
         {
