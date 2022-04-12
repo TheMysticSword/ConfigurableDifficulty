@@ -627,6 +627,21 @@ namespace ConfigurableDifficulty
             OnConfigReloaded();
         }
 
+        public static Dictionary<string, Dictionary<string, string>> langTokenStrings = new Dictionary<string, Dictionary<string, string>>();
+        public static void AddOrReplaceLanguageString(string lang, string token, string str)
+        {
+            Dictionary<string, string> dict;
+            if (!langTokenStrings.ContainsKey(lang))
+            {
+                dict = new Dictionary<string, string>();
+                langTokenStrings.Add(lang, dict);
+            }
+            else dict = langTokenStrings[lang];
+
+            if (!dict.ContainsKey(token)) dict.Add(token, str);
+            else dict[token] = str;
+        }
+
         public static void OnConfigReloaded()
         {
             playerRegen.Value = Mathf.Clamp(playerRegen.Value, 0f, 100f);
