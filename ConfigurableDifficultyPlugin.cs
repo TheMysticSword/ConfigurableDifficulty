@@ -264,6 +264,7 @@ namespace ConfigurableDifficulty
                             args.healthMultAdd += playerMaxHealth.Value / 100f;
                             args.baseShieldAdd += sender.maxHealth * playerMaxShield.Value / 100f;
                             args.regenMultAdd += playerRegen.Value / 100f;
+                            if (configurableDifficultyDef.countsAsHardMode) args.regenMultAdd += 0.4f;
                             args.baseRegenAdd += playerBaseRegen.Value;
                             if (playerSpeed.Value > 0f) args.moveSpeedMultAdd += playerSpeed.Value / 100f;
                             else args.moveSpeedReductionMultAdd -= playerSpeed.Value / 100f;
