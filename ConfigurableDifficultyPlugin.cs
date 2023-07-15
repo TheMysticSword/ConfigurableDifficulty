@@ -12,14 +12,20 @@ using System.Security.Permissions;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using MysticsRisky2Utils;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
+[assembly: HG.Reflection.SearchableAttribute.OptIn]
 namespace ConfigurableDifficulty
 {
-    [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [BepInDependency(R2API.R2API.PluginGUID)]
-    [R2APISubmoduleDependency(nameof(DifficultyAPI), nameof(CommandHelper), nameof(RecalculateStatsAPI))]
+    [BepInDependency(DifficultyAPI.PluginGUID)]
+    [BepInDependency(LanguageAPI.PluginGUID)]
+    [BepInDependency(RecalculateStatsAPI.PluginGUID)]
+    [BepInDependency(MysticsRisky2UtilsPlugin.PluginGUID)]
+    [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+    [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     public class ConfigurableDifficultyPlugin : BaseUnityPlugin
     {
         public const string PluginGUID = "com.themysticsword.configurabledifficulty";
