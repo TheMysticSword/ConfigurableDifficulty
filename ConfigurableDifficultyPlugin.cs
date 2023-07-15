@@ -30,81 +30,81 @@ namespace ConfigurableDifficulty
     {
         public const string PluginGUID = "com.themysticsword.configurabledifficulty";
         public const string PluginName = "ConfigurableDifficulty";
-        public const string PluginVersion = "1.1.0";
+        public const string PluginVersion = "1.2.0";
 
         // General
-        public static ConfigEntry<float> difficultyScaling;
-        public static ConfigEntry<float> teleporterRadius;
-        public static ConfigEntry<float> teleporterChargeSpeed;
-        public static ConfigEntry<float> teleporterDischargeSpeed;
-        public static ConfigEntry<int> ambientLevelCap;
-        public static ConfigEntry<bool> countsAsHardMode;
+        public static ConfigOptions.ConfigurableValue<float> difficultyScaling;
+        public static ConfigOptions.ConfigurableValue<float> teleporterRadius;
+        public static ConfigOptions.ConfigurableValue<float> teleporterChargeSpeed;
+        public static ConfigOptions.ConfigurableValue<float> teleporterDischargeSpeed;
+        public static ConfigOptions.ConfigurableValue<int> ambientLevelCap;
+        public static ConfigOptions.ConfigurableValue<bool> countsAsHardMode;
 
         // Player stats
-        public static ConfigEntry<float> playerMaxHealth;
-        public static ConfigEntry<float> playerMaxShield;
-        public static ConfigEntry<float> playerRegen;
-        public static ConfigEntry<float> playerBaseRegen;
-        public static ConfigEntry<float> playerSpeed;
-        public static ConfigEntry<float> playerJumpPower;
-        public static ConfigEntry<float> playerDamage;
-        public static ConfigEntry<float> playerAttackSpeed;
-        public static ConfigEntry<float> playerCrit;
-        public static ConfigEntry<float> playerCritDamage;
-        public static ConfigEntry<float> playerArmor;
-        public static ConfigEntry<float> playerCurse;
-        public static ConfigEntry<float> playerCooldowns;
+        public static ConfigOptions.ConfigurableValue<float> playerMaxHealth;
+        public static ConfigOptions.ConfigurableValue<float> playerMaxShield;
+        public static ConfigOptions.ConfigurableValue<float> playerRegen;
+        public static ConfigOptions.ConfigurableValue<float> playerBaseRegen;
+        public static ConfigOptions.ConfigurableValue<float> playerSpeed;
+        public static ConfigOptions.ConfigurableValue<float> playerJumpPower;
+        public static ConfigOptions.ConfigurableValue<float> playerDamage;
+        public static ConfigOptions.ConfigurableValue<float> playerAttackSpeed;
+        public static ConfigOptions.ConfigurableValue<float> playerCrit;
+        public static ConfigOptions.ConfigurableValue<float> playerCritDamage;
+        public static ConfigOptions.ConfigurableValue<float> playerArmor;
+        public static ConfigOptions.ConfigurableValue<float> playerCurse;
+        public static ConfigOptions.ConfigurableValue<float> playerCooldowns;
 
         // Player modifiers
-        public static ConfigEntry<string> playerStartingItems;
-        public static ConfigEntry<string> playerStartingEquipment;
+        public static ConfigOptions.ConfigurableValue<string> playerStartingItems;
+        public static ConfigOptions.ConfigurableValue<string> playerStartingEquipment;
 
         // Ally stats
-        public static ConfigEntry<float> allyMaxHealth;
-        public static ConfigEntry<float> allyMaxShield;
-        public static ConfigEntry<float> allyRegen;
-        public static ConfigEntry<float> allyBaseRegen;
-        public static ConfigEntry<float> allySpeed;
-        public static ConfigEntry<float> allyJumpPower;
-        public static ConfigEntry<float> allyDamage;
-        public static ConfigEntry<float> allyAttackSpeed;
-        public static ConfigEntry<float> allyCrit;
-        public static ConfigEntry<float> allyCritDamage;
-        public static ConfigEntry<float> allyArmor;
-        public static ConfigEntry<float> allyCurse;
-        public static ConfigEntry<float> allyCooldowns;
+        public static ConfigOptions.ConfigurableValue<float> allyMaxHealth;
+        public static ConfigOptions.ConfigurableValue<float> allyMaxShield;
+        public static ConfigOptions.ConfigurableValue<float> allyRegen;
+        public static ConfigOptions.ConfigurableValue<float> allyBaseRegen;
+        public static ConfigOptions.ConfigurableValue<float> allySpeed;
+        public static ConfigOptions.ConfigurableValue<float> allyJumpPower;
+        public static ConfigOptions.ConfigurableValue<float> allyDamage;
+        public static ConfigOptions.ConfigurableValue<float> allyAttackSpeed;
+        public static ConfigOptions.ConfigurableValue<float> allyCrit;
+        public static ConfigOptions.ConfigurableValue<float> allyCritDamage;
+        public static ConfigOptions.ConfigurableValue<float> allyArmor;
+        public static ConfigOptions.ConfigurableValue<float> allyCurse;
+        public static ConfigOptions.ConfigurableValue<float> allyCooldowns;
 
         // Ally modifiers
-        public static ConfigEntry<float> allyStartingHealth;
-        public static ConfigEntry<float> allyHealing;
-        public static ConfigEntry<float> allyFallDamage;
-        public static ConfigEntry<bool> allyFallDamageIsLethal;
-        public static ConfigEntry<float> allyPermanentDamage;
-        public static ConfigEntry<string> allyStartingItems;
+        public static ConfigOptions.ConfigurableValue<float> allyStartingHealth;
+        public static ConfigOptions.ConfigurableValue<float> allyHealing;
+        public static ConfigOptions.ConfigurableValue<float> allyFallDamage;
+        public static ConfigOptions.ConfigurableValue<bool> allyFallDamageIsLethal;
+        public static ConfigOptions.ConfigurableValue<float> allyPermanentDamage;
+        public static ConfigOptions.ConfigurableValue<string> allyStartingItems;
 
         // Enemy stats
-        public static ConfigEntry<float> enemyMaxHealth;
-        public static ConfigEntry<float> enemyMaxShield;
-        public static ConfigEntry<float> enemyRegen;
-        public static ConfigEntry<float> enemyBaseRegen;
-        public static ConfigEntry<float> enemySpeed;
-        public static ConfigEntry<float> enemyJumpPower;
-        public static ConfigEntry<float> enemyDamage;
-        public static ConfigEntry<float> enemyAttackSpeed;
-        public static ConfigEntry<float> enemyCrit;
-        public static ConfigEntry<float> enemyCritDamage;
-        public static ConfigEntry<float> enemyArmor;
-        public static ConfigEntry<float> enemyCurse;
-        public static ConfigEntry<float> enemyCooldowns;
+        public static ConfigOptions.ConfigurableValue<float> enemyMaxHealth;
+        public static ConfigOptions.ConfigurableValue<float> enemyMaxShield;
+        public static ConfigOptions.ConfigurableValue<float> enemyRegen;
+        public static ConfigOptions.ConfigurableValue<float> enemyBaseRegen;
+        public static ConfigOptions.ConfigurableValue<float> enemySpeed;
+        public static ConfigOptions.ConfigurableValue<float> enemyJumpPower;
+        public static ConfigOptions.ConfigurableValue<float> enemyDamage;
+        public static ConfigOptions.ConfigurableValue<float> enemyAttackSpeed;
+        public static ConfigOptions.ConfigurableValue<float> enemyCrit;
+        public static ConfigOptions.ConfigurableValue<float> enemyCritDamage;
+        public static ConfigOptions.ConfigurableValue<float> enemyArmor;
+        public static ConfigOptions.ConfigurableValue<float> enemyCurse;
+        public static ConfigOptions.ConfigurableValue<float> enemyCooldowns;
 
         // Enemy modifiers
-        public static ConfigEntry<float> enemyStartingHealth;
-        public static ConfigEntry<float> enemyHealing;
-        public static ConfigEntry<float> enemyFallDamage;
-        public static ConfigEntry<bool> enemyFallDamageIsLethal;
-        public static ConfigEntry<float> enemyPermanentDamage;
-        public static ConfigEntry<float> enemyGoldDrops;
-        public static ConfigEntry<string> enemyStartingItems;
+        public static ConfigOptions.ConfigurableValue<float> enemyStartingHealth;
+        public static ConfigOptions.ConfigurableValue<float> enemyHealing;
+        public static ConfigOptions.ConfigurableValue<float> enemyFallDamage;
+        public static ConfigOptions.ConfigurableValue<bool> enemyFallDamageIsLethal;
+        public static ConfigOptions.ConfigurableValue<float> enemyPermanentDamage;
+        public static ConfigOptions.ConfigurableValue<float> enemyGoldDrops;
+        public static ConfigOptions.ConfigurableValue<string> enemyStartingItems;
 
         public static DifficultyDef configurableDifficultyDef;
         public static DifficultyIndex configurableDifficultyIndex;
@@ -114,81 +114,80 @@ namespace ConfigurableDifficulty
 
         public void Awake()
         {
-            CommandHelper.AddToConsoleWhenReady();
-
-            config = new ConfigFile(Paths.ConfigPath + "\\ConfigurableDifficulty.cfg", true);
+            config = Config;
             logger = Logger;
             
-            difficultyScaling = config.Bind("General", "DifficultyScaling", 50f, "Difficulty scaling over time (in %)");
-            teleporterRadius = config.Bind("General", "TeleporterRadius", -50f, "Teleporter radius (in %). Values of -100% and below set the radius to 0m.");
-            teleporterChargeSpeed = config.Bind("General", "TeleporterChargeSpeed", 0f, "Teleporter charge speed (in %). Values of -100% and below make the teleporter unchargeable.");
-            teleporterDischargeSpeed = config.Bind("General", "TeleporterDischargeSpeed", 0f, "Teleporter discharge speed when all players are outside the radius (in % per second)");
-            ambientLevelCap = config.Bind("General", "AmbientLevelCap", 99, "Ambient level cap. Ambient level affects monsters and NPC allies.");
-            countsAsHardMode = config.Bind("General", "CountsAsHardMode", true, "Completing a run on this difficulty will unlock the selected survivor's Mastery skin.");
+            difficultyScaling = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "General", "DifficultyScaling", 50f, -1000f, 1000f, description: "Difficulty scaling over time (in %)", onChanged: (x) => MarkConfigDirty());
+            teleporterRadius = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "General", "TeleporterRadius", -50f, -100f, 1000f, description: "Teleporter radius (in %). Values of -100% and below set the radius to 0m.", onChanged: (x) => MarkConfigDirty());
+            teleporterChargeSpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "General", "TeleporterChargeSpeed", 0f, -100f, 1000f, description: "Teleporter charge speed (in %). Values of -100% and below make the teleporter unchargeable.", onChanged: (x) => MarkConfigDirty());
+            teleporterDischargeSpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "General", "TeleporterDischargeSpeed", 0f, 0f, 1000f, description: "Teleporter discharge speed when all players are outside the radius (in % per second)", onChanged: (x) => MarkConfigDirty());
+            ambientLevelCap = ConfigOptions.ConfigurableValue.CreateInt(PluginGUID, PluginName, config, "General", "AmbientLevelCap", 99, 1, 1000000, description: "Ambient level cap. Ambient level affects monsters and NPC allies.", onChanged: (x) => MarkConfigDirty());
+            countsAsHardMode = ConfigOptions.ConfigurableValue.CreateBool(PluginGUID, PluginName, config, "General", "CountsAsHardMode", true, description: "Completing a run on this difficulty will unlock the selected survivor's Mastery skin.", onChanged: (x) => MarkConfigDirty());
 
-            playerMaxHealth = config.Bind("Player stats", "PlayerMaxHealth", 0f, "Player maximum health (in %)");
-            playerMaxShield = config.Bind("Player stats", "PlayerMaxShield", 0f, "Player maximum shield (in %)");
-            playerRegen = config.Bind("Player stats", "PlayerRegen", -40f, "Player health regeneration (in %)");
-            playerBaseRegen = config.Bind("Player stats", "PlayerBaseRegen", 0f, "Player base health regeneration (in HP/s)");
-            playerSpeed = config.Bind("Player stats", "PlayerSpeed", 0f, "Player movement speed (in %)");
-            playerJumpPower = config.Bind("Player stats", "PlayerJumpPower", 0f, "Player jump power (in %)");
-            playerDamage = config.Bind("Player stats", "PlayerDamage", 0f, "Player damage (in %)");
-            playerAttackSpeed = config.Bind("Player stats", "PlayerAttackSpeed", 0f, "Player attack speed (in %)");
-            playerCrit = config.Bind("Player stats", "PlayerCrit", 0f, "Player critical strike chance (in %)");
-            playerCritDamage = config.Bind("Player stats", "PlayerCritDamage", 0f, "Player critical strike chance damage (in %)");
-            playerArmor = config.Bind("Player stats", "PlayerArmor", 0f, "Player armor");
-            playerCurse = config.Bind("Player stats", "PlayerCurse", 0f, "Player maximum health reduction");
-            playerCooldowns = config.Bind("Player stats", "PlayerCooldowns", 0f, "Player skill cooldowns");
+            playerMaxHealth = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerMaxHealth", 0f, -1000f, 1000f, description: "Player maximum health (in %)", onChanged: (x) => MarkConfigDirty());
+            playerMaxShield = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerMaxShield", 0f, -1000f, 1000f, description: "Player maximum shield (in %)", onChanged: (x) => MarkConfigDirty());
+            playerRegen = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerRegen", -40f, -1000f, 1000f, description: "Player health regeneration (in %)", onChanged: (x) => MarkConfigDirty());
+            playerBaseRegen = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerBaseRegen", 0f, -1000f, 1000f, description: "Player base health regeneration (in HP/s)", onChanged: (x) => MarkConfigDirty());
+            playerSpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerSpeed", 0f, -1000f, 1000f, description: "Player movement speed (in %)", onChanged: (x) => MarkConfigDirty());
+            playerJumpPower = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerJumpPower", 0f, -1000f, 1000f, description: "Player jump power (in %)", onChanged: (x) => MarkConfigDirty());
+            playerDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerDamage", 0f, -1000f, 1000f, description: "Player damage (in %)", onChanged: (x) => MarkConfigDirty());
+            playerAttackSpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerAttackSpeed", 0f, -1000f, 1000f, description: "Player attack speed (in %)", onChanged: (x) => MarkConfigDirty());
+            playerCrit = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerCrit", 0f, -1000f, 1000f, description: "Player critical strike chance (in %)", onChanged: (x) => MarkConfigDirty());
+            playerCritDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerCritDamage", 0f, -1000f, 1000f, description: "Player critical strike chance damage (in %)", onChanged: (x) => MarkConfigDirty());
+            playerArmor = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerArmor", 0f, -1000f, 1000f, description: "Player armor", onChanged: (x) => MarkConfigDirty());
+            playerCurse = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerCurse", 0f, -1000f, 1000f, description: "Player maximum health reduction", onChanged: (x) => MarkConfigDirty());
+            playerCooldowns = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "PlayerCooldowns", 0f, -1000f, 1000f, description: "Player skill cooldowns", onChanged: (x) => MarkConfigDirty());
 
-            playerStartingItems = config.Bind("Player modifiers", "PlayerStartingItems", "", "Player starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99");
-            playerStartingEquipment = config.Bind("Player modifiers", "PlayerStartingEquipment", "", "Player starting equipment. Uses the internal equipment name. Example: GoldGat");
+            playerStartingItems = ConfigOptions.ConfigurableValue.CreateString(PluginGUID, PluginName, config, "Player modifiers", "PlayerStartingItems", "", description: "Player starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99", onChanged: (x) => MarkConfigDirty());
+            playerStartingEquipment = ConfigOptions.ConfigurableValue.CreateString(PluginGUID, PluginName, config, "Player modifiers", "PlayerStartingEquipment", "", description: "Player starting equipment. Uses the internal equipment name. Example: GoldGat", onChanged: (x) => MarkConfigDirty());
 
-            allyMaxHealth = config.Bind("Ally stats", "AllyMaxHealth", 0f, "Ally maximum health (in %)");
-            allyMaxShield = config.Bind("Ally stats", "AllyMaxShield", 0f, "Ally maximum shield (in %)");
-            allyRegen = config.Bind("Ally stats", "AllyRegen", 0f, "Ally health regeneration (in %)");
-            allyBaseRegen = config.Bind("Player stats", "AllyBaseRegen", 0f, "Ally base health regeneration (in HP/s)");
-            allySpeed = config.Bind("Ally stats", "AllySpeed", 0f, "Ally movement speed (in %)");
-            allyJumpPower = config.Bind("Ally stats", "AllyJumpPower", 0f, "Ally jump power (in %)");
-            allyDamage = config.Bind("Ally stats", "AllyDamage", 0f, "Ally damage (in %)");
-            allyAttackSpeed = config.Bind("Ally stats", "AllyAttackSpeed", 0f, "Ally attack speed (in %)");
-            allyCrit = config.Bind("Ally stats", "AllyCrit", 0f, "Ally critical strike chance (in %)");
-            allyCritDamage = config.Bind("Ally stats", "AllyCritDamage", 0f, "Ally critical strike chance damage (in %)");
-            allyArmor = config.Bind("Ally stats", "AllyArmor", 0f, "Ally armor");
-            allyCurse = config.Bind("Ally stats", "AllyCurse", 0f, "Ally maximum health reduction");
-            allyCooldowns = config.Bind("Ally stats", "AllyCooldowns", 0f, "Ally skill cooldowns");
+            allyMaxHealth = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyMaxHealth", 0f, -1000f, 1000f, description: "Ally maximum health (in %)", onChanged: (x) => MarkConfigDirty());
+            allyMaxShield = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyMaxShield", 0f, -1000f, 1000f, description: "Ally maximum shield (in %)", onChanged: (x) => MarkConfigDirty());
+            allyRegen = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyRegen", 0f, -1000f, 1000f, description: "Ally health regeneration (in %)", onChanged: (x) => MarkConfigDirty());
+            allyBaseRegen = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "AllyBaseRegen", 0f, -1000f, 1000f, description: "Ally base health regeneration (in HP/s)", onChanged: (x) => MarkConfigDirty());
+            allySpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllySpeed", 0f, -1000f, 1000f, description: "Ally movement speed (in %)", onChanged: (x) => MarkConfigDirty());
+            allyJumpPower = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyJumpPower", 0f, -1000f, 1000f, description: "Ally jump power (in %)", onChanged: (x) => MarkConfigDirty());
+            allyDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyDamage", 0f, -1000f, 1000f, description: "Ally damage (in %)", onChanged: (x) => MarkConfigDirty());
+            allyAttackSpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyAttackSpeed", 0f, -1000f, 1000f, description: "Ally attack speed (in %)", onChanged: (x) => MarkConfigDirty());
+            allyCrit = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyCrit", 0f, -1000f, 1000f, description: "Ally critical strike chance (in %)", onChanged: (x) => MarkConfigDirty());
+            allyCritDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyCritDamage", 0f, -1000f, 1000f, description: "Ally critical strike chance damage (in %)", onChanged: (x) => MarkConfigDirty());
+            allyArmor = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyArmor", 0f, -1000f, 1000f, description: "Ally armor", onChanged: (x) => MarkConfigDirty());
+            allyCurse = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyCurse", 0f, -1000f, 1000f, description: "Ally maximum health reduction", onChanged: (x) => MarkConfigDirty());
+            allyCooldowns = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally stats", "AllyCooldowns", 0f, -1000f, 1000f, description: "Ally skill cooldowns", onChanged: (x) => MarkConfigDirty());
 
-            allyStartingHealth = config.Bind("Ally modifiers", "AllyStartingHealth", 50f, "Ally starting health (in %, between 0-100%)");
-            allyHealing = config.Bind("Ally modifiers", "AllyHealing", -50f, "Ally healing (in %). Values of -100% and below disable ally healing.");
-            allyFallDamage = config.Bind("Ally modifiers", "AllyFallDamage", 100f, "Ally fall damage (in %). Values of -100% and below disable ally fall damage.");
-            allyFallDamageIsLethal = config.Bind("Ally modifiers", "AllyFallDamageIsLethal", true, "Allies can die from fall damage.");
-            allyPermanentDamage = config.Bind("Ally modifiers", "AllyPermanentDamage", 40f, "Whenever an ally takes damage, their maximum health is reduced by a portion of taken damage (in %). Values of 0% and below disable permanent damage.");
-            allyStartingItems = config.Bind("Ally modifiers", "AllyStartingItems", "", "Ally starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99");
+            allyStartingHealth = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally modifiers", "AllyStartingHealth", 50f, 0f, 100f, description: "Ally starting health (in %, between 0-100%)", onChanged: (x) => MarkConfigDirty());
+            allyHealing = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally modifiers", "AllyHealing", -50f, -100f, 1000000f, description: "Ally healing (in %). Values of -100% and below disable ally healing.", onChanged: (x) => MarkConfigDirty());
+            allyFallDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally modifiers", "AllyFallDamage", 100f, -100f, 1000000f, description: "Ally fall damage (in %). Values of -100% and below disable ally fall damage.", onChanged: (x) => MarkConfigDirty());
+            allyFallDamageIsLethal = ConfigOptions.ConfigurableValue.CreateBool(PluginGUID, PluginName, config, "Ally modifiers", "AllyFallDamageIsLethal", true, description: "Allies can die from fall damage.", onChanged: (x) => MarkConfigDirty());
+            allyPermanentDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Ally modifiers", "AllyPermanentDamage", 40f, 0f, 1000000f, description: "Whenever an ally takes damage, their maximum health is reduced by a portion of taken damage (in %). Values of 0% and below disable permanent damage.", onChanged: (x) => MarkConfigDirty());
+            allyStartingItems = ConfigOptions.ConfigurableValue.CreateString(PluginGUID, PluginName, config, "Ally modifiers", "AllyStartingItems", "", description: "Ally starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99", onChanged: (x) => MarkConfigDirty());
 
-            enemyMaxHealth = config.Bind("Enemy stats", "EnemyMaxHealth", 0f, "Enemy maximum health (in %)");
-            enemyMaxShield = config.Bind("Enemy stats", "EnemyMaxShield", 0f, "Enemy maximum shield (in %)");
-            enemyRegen = config.Bind("Enemy stats", "EnemyRegen", 0f, "Enemy health regeneration (in %)");
-            enemyBaseRegen = config.Bind("Player stats", "EnemyBaseRegen", 0f, "Enemy base health regeneration (in HP/s)");
-            enemySpeed = config.Bind("Enemy stats", "EnemySpeed", 40f, "Enemy movement speed (in %)");
-            enemyJumpPower = config.Bind("Enemy stats", "EnemyJumpPower", 0f, "Enemy jump power (in %)");
-            enemyDamage = config.Bind("Enemy stats", "EnemyDamage", 0f, "Enemy damage (in %)");
-            enemyAttackSpeed = config.Bind("Enemy stats", "EnemyAttackSpeed", 0f, "Enemy attack speed (in %)");
-            enemyCrit = config.Bind("Enemy stats", "EnemyCrit", 0f, "Enemy critical strike chance (in %)");
-            enemyCritDamage = config.Bind("Enemy stats", "EnemyCritDamage", 0f, "Enemy critical strike chance damage (in %)");
-            enemyArmor = config.Bind("Enemy stats", "EnemyArmor", 0f, "Enemy armor");
-            enemyCurse = config.Bind("Enemy stats", "EnemyCurse", 0f, "Enemy maximum health reduction");
-            enemyCooldowns = config.Bind("Enemy stats", "EnemyCooldowns", -50f, "Enemy skill cooldowns");
+            enemyMaxHealth = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyMaxHealth", 0f, -1000f, 1000f, description: "Enemy maximum health (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyMaxShield = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyMaxShield", 0f, -1000f, 1000f, description: "Enemy maximum shield (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyRegen = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyRegen", 0f, -1000f, 1000f, description: "Enemy health regeneration (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyBaseRegen = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Player stats", "EnemyBaseRegen", 0f, -1000f, 1000f, description: "Enemy base health regeneration (in HP/s)", onChanged: (x) => MarkConfigDirty());
+            enemySpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemySpeed", 40f, -1000f, 1000f, description: "Enemy movement speed (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyJumpPower = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyJumpPower", 0f, -1000f, 1000f, description: "Enemy jump power (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyDamage", 0f, -1000f, 1000f, description: "Enemy damage (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyAttackSpeed = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyAttackSpeed", 0f, -1000f, 1000f, description: "Enemy attack speed (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyCrit = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyCrit", 0f, -1000f, 1000f, description: "Enemy critical strike chance (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyCritDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyCritDamage", 0f, -1000f, 1000f, description: "Enemy critical strike chance damage (in %)", onChanged: (x) => MarkConfigDirty());
+            enemyArmor = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyArmor", 0f, -1000f, 1000f, description: "Enemy armor", onChanged: (x) => MarkConfigDirty());
+            enemyCurse = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyCurse", 0f, -1000f, 1000f, description: "Enemy maximum health reduction", onChanged: (x) => MarkConfigDirty());
+            enemyCooldowns = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy stats", "EnemyCooldowns", -50f, -1000f, 1000f, description: "Enemy skill cooldowns", onChanged: (x) => MarkConfigDirty());
 
-            enemyStartingHealth = config.Bind("Enemy modifiers", "EnemyStartingHealth", 100f, "Enemy starting health (in %, between 0-100%)");
-            enemyHealing = config.Bind("Enemy modifiers", "EnemyHealing", 0f, "Enemy healing (in %). Values of -100% and below disable enemy healing.");
-            enemyFallDamage = config.Bind("Enemy modifiers", "EnemyFallDamage", 0f, "Enemy fall damage (in %). Values of -100% and below disable enemy fall damage.");
-            enemyFallDamageIsLethal = config.Bind("Enemy modifiers", "EnemyFallDamageIsLethal", false, "Allies can die from fall damage.");
-            enemyPermanentDamage = config.Bind("Enemy modifiers", "EnemyPermanentDamage", 0f, "Whenever an enemy takes damage, their maximum health is reduced by a portion of taken damage (in %). Values of 0% and below disable permanent damage.");
-            enemyGoldDrops = config.Bind("Enemy modifiers", "EnemyGoldDrops", -20f, "Enemy gold drops (in %). Set to positive values to increase gold drops, set to negative values to reduce them. Values of -100% and below set gold drops to 0.");
-            enemyStartingItems = config.Bind("Enemy modifiers", "EnemyStartingItems", "", "Enemy starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99");
+            enemyStartingHealth = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy modifiers", "EnemyStartingHealth", 100f, 0f, 100f, description: "Enemy starting health (in %, between 0-100%)", onChanged: (x) => MarkConfigDirty());
+            enemyHealing = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy modifiers", "EnemyHealing", 0f, -100f, 1000f, description: "Enemy healing (in %). Values of -100% and below disable enemy healing.", onChanged: (x) => MarkConfigDirty());
+            enemyFallDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy modifiers", "EnemyFallDamage", 0f, -100f, 1000f, description: "Enemy fall damage (in %). Values of -100% and below disable enemy fall damage.", onChanged: (x) => MarkConfigDirty());
+            enemyFallDamageIsLethal = ConfigOptions.ConfigurableValue.CreateBool(PluginGUID, PluginName, config, "Enemy modifiers", "EnemyFallDamageIsLethal", false, description: "Allies can die from fall damage.", onChanged: (x) => MarkConfigDirty());
+            enemyPermanentDamage = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy modifiers", "EnemyPermanentDamage", 0f, 0f, 1000f, description: "Whenever an enemy takes damage, their maximum health is reduced by a portion of taken damage (in %). Values of 0% and below disable permanent damage.", onChanged: (x) => MarkConfigDirty());
+            enemyGoldDrops = ConfigOptions.ConfigurableValue.CreateFloat(PluginGUID, PluginName, config, "Enemy modifiers", "EnemyGoldDrops", -20f, -100f, 1000f, description: "Enemy gold drops (in %). Set to positive values to increase gold drops, set to negative values to reduce them. Values of -100% and below set gold drops to 0.", onChanged: (x) => MarkConfigDirty());
+            enemyStartingItems = ConfigOptions.ConfigurableValue.CreateString(PluginGUID, PluginName, config, "Enemy modifiers", "EnemyStartingItems", "", description: "Enemy starting items. Uses internal item names, comma-separated. Add a colon and a number to select the amount of the starting item. Example: Squid,Seed,GhostOnKill:3,BarrierOnOverHeal,FlatHealth,HeadHunter:99", onChanged: (x) => MarkConfigDirty());
 
-            OnConfigReloaded();
+            MarkConfigDirty();
 
             var assetBundle = AssetBundle.LoadFromFile(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Info.Location), "configurabledifficultyassetbundle"));
+            var difficultyIcon = assetBundle.LoadAsset<Sprite>("Assets/Misc/Textures/texConfigurableDifficultyIcon.png");
 
             configurableDifficultyDef = new DifficultyDef(
                 2f,
@@ -200,12 +199,21 @@ namespace ConfigurableDifficulty
                 false
             );
             SetConfigRelatedDifficultyDefValues();
-            configurableDifficultyIndex = DifficultyAPI.AddDifficulty(configurableDifficultyDef, assetBundle.LoadAsset<Sprite>("Assets/Misc/Textures/texConfigurableDifficultyIcon.png"));
+            configurableDifficultyIndex = DifficultyAPI.AddDifficulty(configurableDifficultyDef, difficultyIcon);
 
-            On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
-            RoR2.Language.onCurrentLanguageChanged += Language_onCurrentLanguageChanged;
+            if (MysticsRisky2Utils.SoftDependencies.SoftDependencyManager.RiskOfOptionsDependency.enabled)
+            {
+                MysticsRisky2Utils.SoftDependencies.SoftDependencyManager.RiskOfOptionsDependency.RegisterModInfo(PluginGUID, PluginName, "Adds a new difficulty with many configurable values to make the game easier or harder.", difficultyIcon);
+            }
+
+            Language.onCurrentLanguageChanged += Language_onCurrentLanguageChanged;
+            RoR2Application.onLoad += () =>
+            {
+                On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
+            };
 
             On.RoR2.CharacterMaster.OnBodyStart += CharacterMaster_OnBodyStart;
+            Run.onPlayerFirstCreatedServer += Run_onPlayerFirstCreatedServer;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             IL.RoR2.HealthComponent.Heal += HealthComponent_Heal;
             IL.RoR2.DeathRewards.OnKilledServer += DeathRewards_OnKilledServer;
@@ -255,6 +263,14 @@ namespace ConfigurableDifficulty
                         }
                     }
                 }
+            }
+        }
+
+        private void Run_onPlayerFirstCreatedServer(Run run, PlayerCharacterMasterController pcmc)
+        {
+            if (run.selectedDifficulty == configurableDifficultyIndex && pcmc.master.inventory.GetItemCount(RoR2Content.Items.MonsoonPlayerHelper) > 0)
+            {
+                pcmc.master.inventory.RemoveItem(RoR2Content.Items.MonsoonPlayerHelper);
             }
         }
 
@@ -557,13 +573,6 @@ namespace ConfigurableDifficulty
             orig(hud, bodyIndices, itemAcquisitionOrderBuffer, itemAcquisitonOrderLength, itemStacks);
         }
 
-        [ConCommand(commandName = "mod_cfgdif_reload", flags = ConVarFlags.None, helpText = "Reload the config file of ConfigurableDifficulty.")]
-        private static void CCReloadConfig(ConCommandArgs args)
-        {
-            config.Reload();
-            OnConfigReloaded();
-        }
-
         public static Dictionary<string, Dictionary<string, string>> langTokenStrings = new Dictionary<string, Dictionary<string, string>>();
         public static void AddOrReplaceLanguageString(string lang, string token, string str)
         {
@@ -584,20 +593,17 @@ namespace ConfigurableDifficulty
         public static Dictionary<ItemIndex, int> enemyStartingItemList = new Dictionary<ItemIndex, int>();
         public static EquipmentIndex playerStartingEquipmentIndex = EquipmentIndex.None;
 
+        public static bool configDirty = false;
+        public static void MarkConfigDirty()
+        {
+            if (configDirty) return;
+
+            configDirty = true;
+            RoR2Application.onNextUpdate += OnConfigReloaded;
+        }
         public static void OnConfigReloaded()
         {
-            teleporterRadius.Value = Mathf.Max(teleporterRadius.Value, -100f);
-            
-            allyStartingHealth.Value = Mathf.Clamp(allyStartingHealth.Value, 0f, 100f);
-            allyHealing.Value = Mathf.Max(allyHealing.Value, -100f);
-            allyFallDamage.Value = Mathf.Max(allyFallDamage.Value, -100f);
-            allyPermanentDamage.Value = Mathf.Max(allyPermanentDamage.Value, 0f);
-
-            enemyStartingHealth.Value = Mathf.Clamp(enemyStartingHealth.Value, 0f, 100f);
-            enemyHealing.Value = Mathf.Max(enemyHealing.Value, -100f);
-            enemyFallDamage.Value = Mathf.Max(enemyFallDamage.Value, -100f);
-            enemyPermanentDamage.Value = Mathf.Max(enemyPermanentDamage.Value, 0f);
-            enemyGoldDrops.Value = Mathf.Max(enemyGoldDrops.Value, -100f);
+            configDirty = false;
 
             SetConfigRelatedDifficultyDefValues();
             RefreshItemLists();
@@ -831,70 +837,70 @@ namespace ConfigurableDifficulty
 
             var sections = new List<ConfigurableDifficultyDescriptionSection>()
             {
-                new ConfigurableDifficultyDescriptionSection(difficultyScaling, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(teleporterRadius),
-                new ConfigurableDifficultyDescriptionSection(teleporterChargeSpeed),
-                new ConfigurableDifficultyDescriptionSection(teleporterDischargeSpeed, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(ambientLevelCap, isDelta: false, showOnlyIfValueIsDifferent: true),
+                new ConfigurableDifficultyDescriptionSection(difficultyScaling.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(teleporterRadius.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(teleporterChargeSpeed.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(teleporterDischargeSpeed.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(ambientLevelCap.bepinexConfigEntry, isDelta: false, showOnlyIfValueIsDifferent: true),
 
-                new ConfigurableDifficultyDescriptionSection(playerMaxHealth),
-                new ConfigurableDifficultyDescriptionSection(playerMaxShield),
-                new ConfigurableDifficultyDescriptionSection(playerRegen),
-                new ConfigurableDifficultyDescriptionSection(playerSpeed),
-                new ConfigurableDifficultyDescriptionSection(playerJumpPower),
-                new ConfigurableDifficultyDescriptionSection(playerDamage),
-                new ConfigurableDifficultyDescriptionSection(playerAttackSpeed),
-                new ConfigurableDifficultyDescriptionSection(playerCrit),
-                new ConfigurableDifficultyDescriptionSection(playerCritDamage),
-                new ConfigurableDifficultyDescriptionSection(playerArmor),
-                new ConfigurableDifficultyDescriptionSection(playerCurse, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(playerCooldowns, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(playerMaxHealth.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerMaxShield.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerRegen.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerSpeed.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerJumpPower.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerDamage.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerAttackSpeed.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerCrit.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerCritDamage.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerArmor.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerCurse.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(playerCooldowns.bepinexConfigEntry, moreIsBetter: false),
 
-                new ConfigurableDifficultyDescriptionSection(playerStartingItems),
-                new ConfigurableDifficultyDescriptionSection(playerStartingEquipment),
+                new ConfigurableDifficultyDescriptionSection(playerStartingItems.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(playerStartingEquipment.bepinexConfigEntry),
 
-                new ConfigurableDifficultyDescriptionSection(allyMaxHealth),
-                new ConfigurableDifficultyDescriptionSection(allyMaxShield),
-                new ConfigurableDifficultyDescriptionSection(allyRegen),
-                new ConfigurableDifficultyDescriptionSection(allySpeed),
-                new ConfigurableDifficultyDescriptionSection(allyJumpPower),
-                new ConfigurableDifficultyDescriptionSection(allyDamage),
-                new ConfigurableDifficultyDescriptionSection(allyAttackSpeed),
-                new ConfigurableDifficultyDescriptionSection(allyCrit),
-                new ConfigurableDifficultyDescriptionSection(allyCritDamage),
-                new ConfigurableDifficultyDescriptionSection(allyArmor),
-                new ConfigurableDifficultyDescriptionSection(allyCurse, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(allyCooldowns, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(allyMaxHealth.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyMaxShield.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyRegen.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allySpeed.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyJumpPower.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyDamage.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyAttackSpeed.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyCrit.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyCritDamage.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyArmor.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyCurse.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(allyCooldowns.bepinexConfigEntry, moreIsBetter: false),
 
-                new ConfigurableDifficultyDescriptionSection(allyStartingHealth, deltaStartingValue: 100f),
-                new ConfigurableDifficultyDescriptionSection(allyHealing),
-                new ConfigurableDifficultyDescriptionSection(allyFallDamage, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(allyFallDamageIsLethal),
-                new ConfigurableDifficultyDescriptionSection(allyPermanentDamage, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(allyStartingItems),
+                new ConfigurableDifficultyDescriptionSection(allyStartingHealth.bepinexConfigEntry, deltaStartingValue: 100f),
+                new ConfigurableDifficultyDescriptionSection(allyHealing.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyFallDamage.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(allyFallDamageIsLethal.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(allyPermanentDamage.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(allyStartingItems.bepinexConfigEntry),
 
-                new ConfigurableDifficultyDescriptionSection(enemyMaxHealth, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyMaxShield, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyRegen, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemySpeed, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyJumpPower, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyDamage, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyAttackSpeed, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyCrit, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyCritDamage, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyArmor, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyCurse),
-                new ConfigurableDifficultyDescriptionSection(enemyCooldowns),
+                new ConfigurableDifficultyDescriptionSection(enemyMaxHealth.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyMaxShield.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyRegen.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemySpeed.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyJumpPower.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyDamage.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyAttackSpeed.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyCrit.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyCritDamage.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyArmor.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyCurse.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(enemyCooldowns.bepinexConfigEntry),
 
-                new ConfigurableDifficultyDescriptionSection(enemyStartingHealth, deltaStartingValue: 100f),
-                new ConfigurableDifficultyDescriptionSection(enemyHealing, moreIsBetter: false),
-                new ConfigurableDifficultyDescriptionSection(enemyFallDamage),
-                new ConfigurableDifficultyDescriptionSection(enemyFallDamageIsLethal),
-                new ConfigurableDifficultyDescriptionSection(enemyPermanentDamage),
-                new ConfigurableDifficultyDescriptionSection(enemyGoldDrops),
-                new ConfigurableDifficultyDescriptionSection(enemyStartingItems),
+                new ConfigurableDifficultyDescriptionSection(enemyStartingHealth.bepinexConfigEntry, deltaStartingValue: 100f),
+                new ConfigurableDifficultyDescriptionSection(enemyHealing.bepinexConfigEntry, moreIsBetter: false),
+                new ConfigurableDifficultyDescriptionSection(enemyFallDamage.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(enemyFallDamageIsLethal.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(enemyPermanentDamage.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(enemyGoldDrops.bepinexConfigEntry),
+                new ConfigurableDifficultyDescriptionSection(enemyStartingItems.bepinexConfigEntry),
 
-                new ConfigurableDifficultyDescriptionSection(countsAsHardMode)
+                new ConfigurableDifficultyDescriptionSection(countsAsHardMode.bepinexConfigEntry)
             };
 
             var sectionTokenPrefix = "DIFFICULTY_CONFIGURABLEDIFFICULTYMOD_DESCRIPTION_";
